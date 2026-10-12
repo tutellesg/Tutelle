@@ -1,0 +1,623 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Tutelle Practice Questions</title>
+<meta name="description" content="Short practice sets by level and topic, with a worked solution after every answer.">
+<script>try{if(localStorage.getItem('tutelle-mode')==='dark')document.documentElement.dataset.mode='dark'}catch(e){}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+<style>
+/* Tutelle house style: a traditional institutional site. White page (near-black in dark mode),
+   deep green accents, Inter throughout, square-cornered boxes with ruled borders,
+   green section rules, striped tables, solid green footer. */
+:root{
+  --bg:#FFFFFF;
+  --bg-alt:#F4F8F5;
+  --accent:#1F6B47;
+  --accent-strong:#164F34;
+  --accent-wash:#E6F0EA;
+  --on-accent:#FFFFFF;
+  --ink:#1C2420;
+  --ink-2:#4F5B55;
+  --line:#D5DFD9;
+  --line-strong:#B7C7BE;
+  --danger:#B3261E;
+  --good:#1F6B47;
+  --good-wash:#E6F0EA;
+  --bad-wash:#FBEAE8;
+  --crest:#1F6B47;
+  --footer-bg:#164F34;
+  --footer-ink:#E3EEE7;
+  --footer-muted:#BFD3C7;
+  --shadow:0 2px 0 #D5DFD9;
+  --f:"Inter","Inter Fallback","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  color-scheme:light;
+}
+:root[data-mode="dark"]{
+  /* Dark mode mirrors light mode: a deep green page with white accents and soft grey text. */
+  --bg:#1E3329;--bg-alt:#233B30;--accent:#FFFFFF;--accent-strong:#FFFFFF;--accent-wash:#2D4A3C;--on-accent:#1E3329;
+  --ink:#F3F6F4;--ink-2:#C2D0C7;--line:#36503F;--line-strong:#4B6757;--danger:#F4B8B3;
+  --good:#CFE8D8;--good-wash:#2D4A3C;--bad-wash:#4A2F2C;--crest:#123024;
+  --footer-bg:#152820;--footer-ink:#E6EEE9;--footer-muted:#A9BBB0;--shadow:0 2px 0 #152820;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{background:var(--bg);color:var(--ink);font-family:var(--f);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;margin:0}
+a{color:var(--accent)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+ul,ol{list-style:none;margin:0;padding:0}
+p{margin:0}
+h1,h2,h3,h4{margin:0;color:var(--ink);text-wrap:balance;letter-spacing:-.01em}
+.wrap{max-width:1140px;margin:0 auto;padding-inline:clamp(16px,3vw,32px)}
+.muted{color:var(--ink-2)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.tick{stroke:var(--accent)}
+
+/* notice strip */
+.notice .wrap{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.mode-btn{display:inline-flex;align-items:center;gap:6px;background:none;border:1px solid var(--line-strong);border-radius:4px;color:var(--ink);font:600 13px/1 var(--f);padding:6px 10px;cursor:pointer;white-space:nowrap}
+.mode-btn:hover{border-color:var(--accent)}
+.notice{background:var(--accent-wash);border-bottom:1px solid var(--line);font-size:14px}
+.notice .wrap{padding-block:9px}
+.notice b{color:var(--accent-strong)}
+
+/* header */
+.top{background:var(--bg);border-bottom:3px solid var(--accent)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px;padding-block:14px}
+.crest{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--ink)}
+.crest svg{flex:none}
+.crest .shield{fill:var(--crest)}
+.crest .nm{display:grid;line-height:1.15}
+.crest .nm b{font-size:24px;font-weight:800;color:var(--accent-strong);letter-spacing:-.01em}
+.crest .nm span{font-size:12.5px;color:var(--ink-2);font-weight:500}
+.nav{display:flex;align-items:center;gap:22px}
+.nav a.text{color:var(--ink);text-decoration:none;font-size:15px;font-weight:600;padding-block:6px;border-bottom:2px solid transparent}
+.nav a.text:hover{color:var(--accent)}
+.nav a.text[aria-current="page"]{color:var(--accent-strong);border-bottom-color:var(--accent)}
+.menu-btn{display:none}
+@media (max-width:900px){
+  .top .wrap{flex-wrap:wrap}
+  .nav{order:3;width:100%;gap:4px 18px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:10px}
+  .nav .btn{display:none}
+}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font:600 15px/1 var(--f);padding:13px 20px;border-radius:4px;border:1px solid var(--accent);background:var(--accent);color:var(--on-accent);text-decoration:none;cursor:pointer}
+.btn:hover{background:var(--accent-strong);border-color:var(--accent-strong)}
+.btn:disabled{opacity:.6;cursor:default}
+.btn.outline{background:var(--bg);color:var(--accent)}
+.btn.outline:hover{background:var(--accent-wash)}
+.btn.small{padding:10px 14px;font-size:14px}
+.link-btn{background:none;border:0;color:var(--accent);font:600 15px var(--f);cursor:pointer;padding:8px 0;text-decoration:underline;text-underline-offset:3px}
+
+/* sections */
+section{padding-block:56px}
+section+section{border-top:1px solid var(--line)}
+section.tint{background:var(--bg-alt)}
+.sec-head{display:grid;gap:10px;margin-bottom:28px;max-width:720px}
+.sec-head h2{font-size:clamp(26px,3vw,32px);font-weight:700;line-height:1.2}
+.sec-head h2::after{content:"";display:block;width:56px;height:4px;background:var(--accent);margin-top:14px}
+.sec-head p{color:var(--ink-2);font-size:17px}
+
+/* page heading for secondary pages */
+.page-head{background:var(--bg-alt);border-bottom:1px solid var(--line);padding-block:28px 36px}
+.crumbs{font-size:14px;color:var(--ink-2);margin-bottom:14px}
+.crumbs a{color:var(--ink-2)}
+.page-head h1{font-size:clamp(32px,4vw,44px);font-weight:800;line-height:1.1;color:var(--accent-strong)}
+.page-head h1::after{content:"";display:block;width:56px;height:4px;background:var(--accent);margin-top:16px}
+.page-head .lede{margin-top:16px;font-size:clamp(17px,1.5vw,19px);color:var(--ink-2);max-width:60ch}
+
+/* hero (home) */
+.hero{padding-block:44px 56px}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,500px);gap:clamp(28px,5vw,64px);align-items:start}
+.hero-copy{display:grid;gap:20px;padding-top:8px}
+.hero h1{font-size:clamp(36px,4.8vw,54px);font-weight:800;line-height:1.08;color:var(--accent-strong)}
+.lede{font-size:clamp(17px,1.5vw,19px);color:var(--ink-2);max-width:40ch}
+.facts{border:1px solid var(--line);border-left:4px solid var(--accent);background:var(--bg);max-width:460px}
+.facts li{display:grid;grid-template-columns:20px 1fr;gap:12px;padding:12px 16px;font-size:15.5px}
+.facts li+li{border-top:1px solid var(--line)}
+.facts svg{margin-top:4px}
+@media (max-width:940px){.hero-grid{grid-template-columns:minmax(0,1fr)}}
+
+/* boxed panel with a green title bar (forms, tools) */
+.card{background:var(--bg);border:1px solid var(--line-strong);border-radius:4px;box-shadow:var(--shadow)}
+.card-head{background:var(--accent);color:var(--on-accent);padding:14px 20px;display:flex;justify-content:space-between;align-items:center;gap:12px;border-radius:3px 3px 0 0}
+.card-head strong{font-size:18px;font-weight:700}
+.card-head .stepno{font-size:13px;font-weight:500;opacity:.9}
+.progress{display:grid;grid-template-columns:repeat(3,1fr);border-bottom:1px solid var(--line)}
+.progress span{font-size:12.5px;font-weight:600;color:var(--ink-2);padding:9px 12px;text-align:center;background:var(--bg-alt)}
+.progress span+span{border-left:1px solid var(--line)}
+.progress span.on{background:var(--bg);color:var(--accent-strong);box-shadow:inset 0 -3px 0 var(--accent)}
+.card-body{padding:22px 20px}
+.card-foot{padding:12px 20px;border-top:1px solid var(--line);font-size:13px;color:var(--ink-2);display:flex;gap:8px;align-items:center;background:var(--bg-alt);border-radius:0 0 3px 3px}
+
+/* form parts */
+.step{display:grid;gap:18px}
+.field{display:grid;gap:7px}
+.field>.q{font-weight:600;font-size:15px}
+.field>.hint{font-size:13.5px;color:var(--ink-2);margin-top:-3px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{display:inline-flex;align-items:center;gap:8px;font:500 14.5px/1.2 var(--f);padding:9px 12px 9px 10px;border-radius:4px;border:1px solid var(--line-strong);background:var(--bg);color:var(--ink);cursor:pointer;text-align:left}
+.chip::before{content:"";width:14px;height:14px;border:1.5px solid var(--line-strong);border-radius:2px;background:var(--bg);flex:none}
+.chips:not([data-multi]) .chip::before{border-radius:50%}
+.chip:hover{border-color:var(--accent)}
+.chip[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-wash);color:var(--accent-strong)}
+.chip[aria-pressed="true"]::before{border-color:var(--accent);background:var(--accent);box-shadow:inset 0 0 0 2.5px var(--bg)}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.row3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+@media (max-width:640px){.row3{grid-template-columns:1fr 1fr}}
+@media (max-width:480px){.row2,.row3{grid-template-columns:minmax(0,1fr)}}
+input[type=text],input[type=tel],select,textarea{width:100%;font:16px/1.4 var(--f);color:var(--ink);background:var(--bg);border:1px solid var(--line-strong);border-radius:4px;padding:10px 12px}
+textarea{min-height:76px;resize:vertical}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 22%,transparent)}
+.tel{display:flex}
+.tel span{display:flex;align-items:center;padding:0 12px;border:1px solid var(--line-strong);border-right:0;border-radius:4px 0 0 4px;background:var(--bg-alt);font-size:15px;color:var(--ink-2)}
+.tel input{border-radius:0 4px 4px 0}
+.consent{display:grid;grid-template-columns:20px 1fr;gap:10px;font-size:13.5px;color:var(--ink-2);align-items:start}
+.consent input{width:18px;height:18px;margin:2px 0 0;accent-color:var(--accent)}
+.err{color:var(--danger);font-size:14px}
+.err:empty{display:none}
+.actions{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-top:4px}
+.done{display:grid;gap:12px}
+.done h3{font-size:22px;color:var(--accent-strong)}
+.ref{border:1px solid var(--line-strong);background:var(--bg-alt);padding:10px 12px;font-size:15px;border-radius:4px}
+.ref b{color:var(--accent-strong);font-variant-numeric:tabular-nums}
+.summary{border-top:1px solid var(--line);padding-top:12px;display:grid;gap:4px;font-size:15px}
+.note{font-size:13px;color:var(--ink-2);border:1px dashed var(--line-strong);padding:10px 12px;border-radius:4px}
+
+/* numbered steps */
+.seq{counter-reset:s;display:grid;gap:14px}
+.seq li{display:grid;grid-template-columns:44px 1fr;gap:16px;border:1px solid var(--line);background:var(--bg);padding:18px}
+.seq li::before{counter-increment:s;content:counter(s);display:grid;place-items:center;width:44px;height:44px;background:var(--accent);color:var(--on-accent);font-weight:700;font-size:20px;border-radius:2px}
+.seq h3{font-size:18px;font-weight:700;margin-bottom:4px}
+.seq p{color:var(--ink-2)}
+
+/* boxes with a green top rule */
+.boxes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.boxes.two{grid-template-columns:repeat(2,minmax(0,1fr))}
+.boxes>div,.boxes>a{border:1px solid var(--line);border-top:4px solid var(--accent);background:var(--bg);padding:20px;display:grid;gap:8px;align-content:start;color:var(--ink);text-decoration:none}
+.boxes>a:hover{border-color:var(--accent)}
+.boxes h3{font-size:18px;font-weight:700}
+.boxes p{color:var(--ink-2);font-size:15.5px}
+.boxes .more{color:var(--accent);font-weight:600;font-size:15px;margin-top:4px}
+@media (max-width:760px){.boxes,.boxes.two{grid-template-columns:minmax(0,1fr)}}
+
+/* tables */
+.table-wrap{position:relative;overflow-x:auto;border:1px solid var(--line-strong)}
+table{width:100%;border-collapse:collapse;min-width:560px;font-size:15px}
+thead th{background:var(--accent);color:var(--on-accent);text-align:left;font-weight:600;padding:11px 14px}
+tbody th,tbody td{text-align:left;vertical-align:top;padding:12px 14px;border-top:1px solid var(--line)}
+tbody tr:nth-child(even){background:var(--bg-alt)}
+tbody th{font-weight:700;white-space:nowrap}
+tbody td{white-space:nowrap}
+tbody td.wrap-ok,#levels tbody td:last-child{white-space:normal}
+td.nowrap{white-space:nowrap}
+.cap{margin-top:10px;color:var(--ink-2);font-size:14px}
+
+/* faq */
+.faq{display:grid;gap:10px;max-width:800px}
+.faq details{border:1px solid var(--line);background:var(--bg)}
+.faq summary{list-style:none;cursor:pointer;padding:15px 44px 15px 18px;font-weight:600;position:relative}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";position:absolute;right:18px;top:12px;font-size:22px;font-weight:500;color:var(--accent)}
+.faq details[open] summary::after{content:"–"}
+.faq details[open] summary{border-bottom:1px solid var(--line)}
+.faq details p{padding:14px 18px 16px;color:var(--ink-2)}
+
+/* bordered callout with a thick green left rule */
+.callout{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:24px;align-items:center;border:1px solid var(--line-strong);border-left:6px solid var(--accent);background:var(--bg);padding:28px}
+.callout h2{font-size:clamp(22px,2.6vw,28px);font-weight:700}
+.callout p{color:var(--ink-2);margin-top:8px;max-width:56ch}
+@media (max-width:760px){.callout{grid-template-columns:minmax(0,1fr)}}
+
+/* sample label */
+.sample{display:inline-block;font-size:11.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--accent-strong);background:var(--accent-wash);border:1px solid var(--line-strong);padding:2px 8px;border-radius:2px}
+
+/* footer */
+footer{background:var(--footer-bg);color:var(--footer-ink);font-size:14.5px}
+footer .cols{display:grid;grid-template-columns:minmax(0,1.4fr) repeat(3,minmax(0,1fr));gap:28px;padding-block:40px}
+footer h4{margin:0 0 8px;color:#fff;font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:.06em}
+footer a{color:#fff;text-decoration:none}
+footer a:hover{text-decoration:underline}
+footer .fname{font-size:22px;font-weight:800;color:#fff}
+footer .list{display:grid;gap:4px}
+footer .legal{border-top:1px solid rgba(255,255,255,.16)}
+footer .legal .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;padding-block:14px;font-size:13px;color:var(--footer-muted)}
+@media (max-width:760px){footer .cols{grid-template-columns:1fr 1fr}footer .cols>div:first-child{grid-column:1/-1}}
+:root[data-mode="dark"] .btn:hover{background:#DDE8E1;border-color:#DDE8E1}
+:root[data-mode="dark"] .btn.outline{background:transparent;color:#FFFFFF;border-color:#FFFFFF}
+:root[data-mode="dark"] .btn.outline:hover{background:var(--accent-wash)}
+
+.practice{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,320px);gap:clamp(24px,4vw,48px);align-items:start}
+@media (max-width:940px){.practice{grid-template-columns:minmax(0,1fr)}}
+.sets{display:grid;gap:10px}
+.set{display:grid;grid-template-columns:22px minmax(0,1fr) auto;gap:12px;align-items:start;text-align:left;width:100%;font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line-strong);border-radius:4px;padding:14px 16px;cursor:pointer}
+.set::before{content:"";width:16px;height:16px;margin-top:3px;border:1.5px solid var(--line-strong);border-radius:50%}
+.set:hover{border-color:var(--accent)}
+.set[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-wash)}
+.set[aria-pressed="true"]::before{border-color:var(--accent);background:var(--accent);box-shadow:inset 0 0 0 3px var(--bg)}
+.set b{display:block;font-size:16px}
+.set span.t{font-size:14px;color:var(--ink-2)}
+.set span.n{font-size:13px;color:var(--ink-2);white-space:nowrap;padding-top:2px}
+.topic{font-size:13px;font-weight:600;color:var(--accent-strong);text-transform:uppercase;letter-spacing:.05em}
+.qtext{font-size:18px;line-height:1.55;font-weight:500}
+.opts{display:grid;gap:8px}
+.opt{display:grid;grid-template-columns:30px minmax(0,1fr);gap:12px;align-items:center;text-align:left;width:100%;font:inherit;font-size:16px;color:var(--ink);background:var(--bg);border:1px solid var(--line-strong);border-radius:4px;padding:10px 14px;cursor:pointer}
+.opt .let{display:grid;place-items:center;width:30px;height:30px;border:1px solid var(--line-strong);border-radius:2px;font-weight:700;font-size:14px;color:var(--ink-2);background:var(--bg-alt)}
+.opt:hover:not(:disabled){border-color:var(--accent)}
+.opt[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-wash)}
+.opt[aria-pressed="true"] .let{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.opt:disabled{cursor:default}
+.opt.right{border-color:var(--good);background:var(--good-wash)}
+.opt.right .let{background:var(--good);border-color:var(--good);color:var(--on-accent)}
+.opt.wrong{border-color:var(--danger);background:var(--bad-wash)}
+.opt.wrong .let{background:var(--danger);border-color:var(--danger);color:var(--bg)}
+.feedback{border:1px solid var(--line-strong);border-left:5px solid var(--good);background:var(--bg-alt);padding:14px 16px;display:grid;gap:10px}
+.feedback.miss{border-left-color:var(--danger)}
+.feedback h3{font-size:17px}
+.working{counter-reset:w;display:grid;gap:6px;font-size:15.5px}
+.working li{display:grid;grid-template-columns:24px 1fr;gap:8px}
+.working li::before{counter-increment:w;content:counter(w) ".";color:var(--ink-2);font-weight:600}
+.bar{height:6px;background:var(--line);border-radius:0}
+.bar i{display:block;height:100%;background:var(--accent);transition:width .2s}
+.score{font-size:30px;font-weight:800;color:var(--accent-strong)}
+.res td.mark{font-weight:700;white-space:nowrap}
+.res td.mark.ok{color:var(--good)}
+.res td.mark.no{color:var(--danger)}
+.res table{min-width:0}
+.side{display:grid;gap:16px}
+.side .box{border:1px solid var(--line);border-top:4px solid var(--accent);padding:18px;display:grid;gap:8px}
+.side h3{font-size:17px}
+.side p,.side li{color:var(--ink-2);font-size:15px}
+.side ul{display:grid;gap:6px}
+.side li{display:grid;grid-template-columns:16px 1fr;gap:8px}
+.side li svg{margin-top:5px}
+</style>
+</head><body>
+<div class="notice"><div class="wrap"><span><b>For parents:</b> tutor requests are free, and shortlists are usually sent within one working day.</span><button type="button" class="mode-btn js-mode" aria-pressed="false"><svg width="13" height="13" viewBox="0 0 16 16" aria-hidden="true"><path d="M13.5 10.2A6 6 0 015.8 2.5a6 6 0 107.7 7.7z" fill="none" stroke="currentColor" stroke-width="1.5"/></svg><span class="js-mode-label">Dark mode</span></button></div></div>
+<header class="top">
+  <div class="wrap">
+    <a class="crest" href="index.html" aria-label="Tutelle home">
+      <svg width="44" height="50" viewBox="0 0 44 50" aria-hidden="true">
+        <path class="shield" d="M2 2h40v26c0 11-9 17-20 20C11 45 2 39 2 28z"/>
+        <path d="M6 6h32v22c0 8.5-7 13.5-16 16-9-2.5-16-7.5-16-16z" fill="none" stroke="#FFFFFF" stroke-width="1.2" opacity=".55"/>
+        <path d="M13 14h18v4h-7v18h-4V18h-7z" fill="#FFFFFF"/>
+      </svg>
+      <span class="nm"><b>Tutelle</b><span>Home Tuition Agency · Singapore</span></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a class="text" href="index.html">Home tuition</a>
+      <a class="text" href="practice.html" aria-current="page">Practice questions</a>
+      <a class="text" href="papers.html">Past year papers</a>
+      <a class="text" href="enrichment.html">Enrichment</a>
+      <a class="btn small" href="index.html#request">Request a tutor</a>
+    </nav>
+  </div>
+</header>
+
+<div class="page-head">
+  <div class="wrap">
+    <p class="crumbs"><a href="index.html">Home</a> › Practice questions</p>
+    <h1>Practice questions</h1>
+    <p class="lede">Short sets of questions by level and topic. After each answer you see the worked solution, so your child knows where a mistake was made.</p>
+  </div>
+</div>
+
+<main>
+  <section>
+    <div class="wrap practice">
+      <div class="card" id="tool">
+        <div class="card-head"><strong id="tool-title">Choose a practice set</strong><span class="stepno" id="tool-status" aria-live="polite"></span></div>
+        <div class="bar" aria-hidden="true"><i id="bar" style="width:0"></i></div>
+        <div class="card-body">
+
+          <div class="step" id="v-setup">
+            <div class="field">
+              <div class="q" id="q-sets">Sample sets</div>
+              <div class="sets" role="group" aria-labelledby="q-sets" id="sets"></div>
+            </div>
+            <p class="err" id="err-setup" role="alert"></p>
+            <div class="actions"><span class="muted" style="font-size:14px">About 5 minutes per set</span><button type="button" class="btn" id="start">Start practice</button></div>
+          </div>
+
+          <div class="step" id="v-question" hidden>
+            <p class="topic" id="q-topic"></p>
+            <p class="qtext" id="q-text"></p>
+            <div class="opts" role="group" aria-label="Answer options" id="opts"></div>
+            <div class="feedback" id="feedback" hidden aria-live="polite">
+              <h3 id="fb-title"></h3>
+              <ol class="working" id="fb-steps"></ol>
+            </div>
+            <p class="err" id="err-q" role="alert"></p>
+            <div class="actions"><button type="button" class="link-btn" id="quit">Choose another set</button><button type="button" class="btn" id="check">Check answer</button></div>
+          </div>
+
+          <div class="step" id="v-result" hidden>
+            <div><p class="muted">Your score</p><p class="score" id="score"></p></div>
+            <div class="table-wrap res"><table><thead><tr><th scope="col">Question</th><th scope="col">Topic</th><th scope="col">Result</th></tr></thead><tbody id="res-rows"></tbody></table></div>
+            <p id="res-line" class="muted"></p>
+            <div class="actions"><button type="button" class="link-btn" id="again">Choose another set</button><button type="button" class="btn" id="retry">Try this set again</button></div>
+          </div>
+
+        </div>
+        <div class="card-foot">These are sample sets. The full question bank will be organised by level, subject and topic.</div>
+      </div>
+
+      <aside class="side">
+        <div class="box">
+          <h3>How each set works</h3>
+          <ul>
+            <li><svg width="12" height="12" viewBox="0 0 16 16" aria-hidden="true"><path class="tick" d="M3 8.5l3 3 7-7" fill="none" stroke-width="2.4" stroke-linecap="square"/></svg>A few questions on one topic, set at school level.</li>
+            <li><svg width="12" height="12" viewBox="0 0 16 16" aria-hidden="true"><path class="tick" d="M3 8.5l3 3 7-7" fill="none" stroke-width="2.4" stroke-linecap="square"/></svg>A worked solution after every answer.</li>
+            <li><svg width="12" height="12" viewBox="0 0 16 16" aria-hidden="true"><path class="tick" d="M3 8.5l3 3 7-7" fill="none" stroke-width="2.4" stroke-linecap="square"/></svg>A summary at the end showing which topics to revise.</li>
+          </ul>
+        </div>
+        <div class="box">
+          <h3>Need help with a topic?</h3>
+          <p>If the same topic keeps coming up in the summary, a tutor can work through it with your child.</p>
+          <a class="btn outline small" href="index.html#request" style="justify-self:start">Request a tutor</a>
+        </div>
+      </aside>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap cols">
+    <div style="display:grid;gap:6px;align-content:start"><span class="fname">Tutelle</span><span>Home Tuition Agency, Singapore</span></div>
+    <div><h4>Services</h4><div class="list"><a href="index.html">Home tuition</a><a href="practice.html">Practice questions</a><a href="papers.html">Past year papers</a><a href="enrichment.html">Enrichment classes</a></div></div>
+    <div><h4>Tutors</h4><div class="list"><a href="index.html#tutors">Teach with Tutelle</a><a href="https://t.me/TutelleSG" target="_blank" rel="noopener">Telegram: @TutelleSG</a></div></div>
+    <div><h4>Contact</h4><div class="list"><span class="js-email"></span></div></div>
+  </div>
+  <div class="legal"><div class="wrap"><span class="js-legal">© Tutelle</span><span>Terms of use · Privacy policy</span></div></div>
+</footer>
+
+<script>
+/* ---- Settings: fill these in before the site goes live ---- */
+const CONFIG = {
+  // From Supabase: Project Settings > API (or Connect). Use the publishable / anon key only, never the service_role key.
+  // Leave both empty to run in preview mode, where nothing is sent or logged.
+  supabaseUrl: "https://mofuizqizmyabbfmtbhs.supabase.co",
+  supabaseKey: "sb_publishable_zpGdP14f-rINXBEXFRsXyQ_R0BPeaCW",
+  email: "hello@tutelle.sg",
+  uen: ""            // add once registered; it appears in the footer
+};
+
+document.querySelectorAll(".js-email").forEach(e => e.textContent = CONFIG.email);
+document.querySelectorAll(".js-legal").forEach(e => e.textContent = `© ${new Date().getFullYear()} Tutelle` + (CONFIG.uen ? ` · UEN ${CONFIG.uen}` : ""));
+
+/* ---- Logging to the Tutelle database ---- */
+const LIVE = !!(CONFIG.supabaseUrl && CONFIG.supabaseKey);
+function randomId() { return (crypto.randomUUID ? crypto.randomUUID() : String(Date.now()) + Math.random().toString(16).slice(2)).slice(0, 36); }
+function storedId(store, key) {
+  try { let v = store.getItem(key); if (!v) { v = randomId(); store.setItem(key, v); } return v; } catch (_) { return randomId(); }
+}
+const VISITOR = storedId(window.localStorage, "tutelle-visitor");
+const SESSION = storedId(window.sessionStorage, "tutelle-session");
+const PAGE = location.pathname.split("/").pop() || "index.html";
+const UTM = new URLSearchParams(location.search);
+const DEVICE = matchMedia("(max-width: 640px)").matches ? "mobile" : matchMedia("(max-width: 1024px)").matches ? "tablet" : "desktop";
+
+function dbInsert(table, row) {
+  const headers = { "apikey": CONFIG.supabaseKey, "Content-Type": "application/json", "Prefer": "return=minimal" };
+  if (CONFIG.supabaseKey.startsWith("eyJ")) headers.Authorization = "Bearer " + CONFIG.supabaseKey;   // older anon keys
+  return fetch(`${CONFIG.supabaseUrl.replace(/\/$/, "")}/rest/v1/${table}`, { method: "POST", headers, body: JSON.stringify(row), keepalive: true });
+}
+
+/* Logs an anonymous event (never personal details). */
+function track(event, props = {}) {
+  if (!LIVE) return;
+  dbInsert("events", {
+    visitor_id: VISITOR, session_id: SESSION, page: PAGE, event, props, device: DEVICE,
+    referrer: (document.referrer || "").slice(0, 500) || null,
+    utm_source: UTM.get("utm_source"), utm_medium: UTM.get("utm_medium"), utm_campaign: UTM.get("utm_campaign")
+  }).catch(() => {});
+}
+track("page_view");
+
+/* Saves a form as a lead. data must include form, reference, name and phone; everything else is kept as details.
+   Returns {ok, preview}. */
+async function sendForm(data) {
+  if (!LIVE) return { ok: true, preview: true };
+  const { form, reference, name, phone, submittedAt, ...details } = data;
+  try {
+    const r = await dbInsert("leads", { form, reference, name, phone, page: PAGE, visitor_id: VISITOR, details });
+    if (r.ok) track("form_sent", { form, reference });
+    return { ok: r.ok, preview: false };
+  } catch (_) { return { ok: false, preview: false }; }
+}
+
+/* ---- Light mode by default; the button in the top strip switches to dark mode and remembers the choice. ---- */
+function setMode(mode, log) {
+  const dark = mode === "dark";
+  if (dark) document.documentElement.dataset.mode = "dark"; else delete document.documentElement.dataset.mode;
+  document.querySelectorAll(".js-mode").forEach(b => b.setAttribute("aria-pressed", dark));
+  document.querySelectorAll(".js-mode-label").forEach(l => l.textContent = dark ? "Light mode" : "Dark mode");
+  try { localStorage.setItem("tutelle-mode", dark ? "dark" : "light"); } catch (_) {}
+  if (log) track("mode_switch", { mode });
+}
+setMode(document.documentElement.dataset.mode === "dark" ? "dark" : "light");
+document.querySelectorAll(".js-mode").forEach(b => b.addEventListener("click", () => setMode(document.documentElement.dataset.mode === "dark" ? "light" : "dark", true)));
+
+/* Log clicks on links to other Tutelle pages and on "Request a tutor" buttons. */
+document.addEventListener("click", e => {
+  const a = e.target.closest("a[href]"); if (!a) return;
+  track("link_click", { to: a.getAttribute("href"), text: a.textContent.trim().slice(0, 60) });
+});
+
+/* Tick-box and radio-style option groups. state[name] holds the value (or array for multi). */
+function bindChips(group, state, onPick) {
+  const name = group.dataset.name, multi = group.dataset.multi === "true";
+  group.addEventListener("click", e => {
+    const b = e.target.closest(".chip"); if (!b || !group.contains(b)) return;
+    let turnedOn = true;
+    if (multi) {
+      turnedOn = b.getAttribute("aria-pressed") !== "true";
+      b.setAttribute("aria-pressed", turnedOn);
+      state[name] = [...group.querySelectorAll('.chip[aria-pressed="true"]')].map(x => x.dataset.value);
+    } else {
+      group.querySelectorAll(".chip").forEach(x => x.setAttribute("aria-pressed", x === b));
+      state[name] = b.dataset.value;
+    }
+    if (onPick) onPick(name, state[name], b.dataset.value, turnedOn);
+  });
+}
+
+function sgMobile(v) { return v.replace(/\D/g, "").replace(/^65(?=\d{8}$)/, ""); }
+function validMobile(v) { return /^[3689]\d{7}$/.test(sgMobile(v)); }
+function refCode(prefix) { return prefix + String(Math.floor(1000 + Math.random() * 9000)); }
+
+
+const SETS = [
+  { id: "p6math", title: "P6 Mathematics", topic: "Fractions, ratio and percentage", questions: [
+    { topic: "Fractions", text: "Ali had $120. He spent 3/8 of it on a book and 1/3 of the remaining money on a bag. How much money did he have left?",
+      options: ["$45", "$50", "$55", "$75"], answer: 1,
+      steps: ["Spent on the book: 3/8 × $120 = $45", "Money remaining: $120 − $45 = $75", "Spent on the bag: 1/3 × $75 = $25", "Money left: $75 − $25 = $50"] },
+    { topic: "Ratio", text: "The ratio of boys to girls in a class is 3 : 5. There are 12 more girls than boys. How many pupils are there in the class?",
+      options: ["32", "40", "48", "60"], answer: 2,
+      steps: ["Difference between girls and boys: 5 − 3 = 2 units", "2 units = 12, so 1 unit = 6", "Total pupils: 3 + 5 = 8 units", "8 × 6 = 48 pupils"] },
+    { topic: "Percentage", text: "A shirt costs $40. Its price is reduced by 15% during a sale. What is the sale price?",
+      options: ["$25", "$34", "$36", "$46"], answer: 1,
+      steps: ["Discount: 15% × $40 = $6", "Sale price: $40 − $6 = $34"] }
+  ]},
+  { id: "s3amath", title: "Sec 3 Additional Mathematics", topic: "Quadratic equations", questions: [
+    { topic: "Nature of roots", text: "Find the range of values of k for which x² + 4x + k = 0 has no real roots.",
+      options: ["k < 4", "k > 4", "k ≥ 4", "k > −4"], answer: 1,
+      steps: ["No real roots when b² − 4ac < 0", "4² − 4(1)(k) < 0", "16 − 4k < 0", "k > 4"] },
+    { topic: "Completing the square", text: "Express x² − 6x + 11 in the form (x − a)² + b.",
+      options: ["(x − 3)² + 2", "(x − 3)² + 11", "(x − 6)² − 25", "(x + 3)² + 2"], answer: 0,
+      steps: ["Half of the x coefficient: −6 ÷ 2 = −3", "x² − 6x = (x − 3)² − 9", "x² − 6x + 11 = (x − 3)² − 9 + 11", "= (x − 3)² + 2"] },
+    { topic: "Sum and product of roots", text: "The roots of 2x² − 5x + 1 = 0 are α and β. Find the value of α² + β².",
+      options: ["17/4", "21/4", "25/4", "29/4"], answer: 1,
+      steps: ["α + β = 5/2 and αβ = 1/2", "α² + β² = (α + β)² − 2αβ", "= 25/4 − 2(1/2)", "= 25/4 − 1 = 21/4"] }
+  ]},
+  { id: "p5sci", title: "P5 Science", topic: "Matter, cells and magnets", questions: [
+    { topic: "Matter", text: "Which statement is true of all gases?",
+      options: ["They have a definite shape.", "They have a definite volume.", "They have mass and occupy space.", "They cannot be compressed."], answer: 2,
+      steps: ["All matter, including gases, has mass and occupies space.", "Gases take the shape and volume of their container, so they have no definite shape or volume.", "Gases can be compressed."] },
+    { topic: "Cells", text: "Which part is found in a plant cell but not in an animal cell?",
+      options: ["Cell membrane", "Nucleus", "Cytoplasm", "Cell wall"], answer: 3,
+      steps: ["Plant and animal cells both have a cell membrane, nucleus and cytoplasm.", "Only plant cells have a cell wall (and chloroplasts)."] },
+    { topic: "Magnets", text: "Which object will be attracted to a magnet?",
+      options: ["A copper coin", "A steel paper clip", "An aluminium can", "A plastic ruler"], answer: 1,
+      steps: ["Magnets attract magnetic materials such as iron, steel, nickel and cobalt.", "Steel contains iron, so the paper clip is attracted.", "Copper, aluminium and plastic are non-magnetic."] }
+  ]}
+];
+
+const LETTERS = ["A", "B", "C", "D"];
+let set = null, qi = 0, picked = null, checked = false, results = [];
+const $ = id => document.getElementById(id);
+
+const setsBox = $("sets");
+SETS.forEach(s => {
+  const b = document.createElement("button");
+  b.type = "button"; b.className = "set"; b.dataset.id = s.id; b.setAttribute("aria-pressed", "false");
+  const mid = document.createElement("span");
+  const t = document.createElement("b"); t.textContent = s.title;
+  const tp = document.createElement("span"); tp.className = "t"; tp.textContent = s.topic;
+  mid.append(t, tp);
+  const n = document.createElement("span"); n.className = "n"; n.textContent = s.questions.length + " questions";
+  b.append(mid, n);
+  setsBox.appendChild(b);
+});
+setsBox.addEventListener("click", e => {
+  const b = e.target.closest(".set"); if (!b) return;
+  setsBox.querySelectorAll(".set").forEach(x => x.setAttribute("aria-pressed", x === b));
+  set = SETS.find(s => s.id === b.dataset.id);
+  $("err-setup").textContent = "";
+});
+
+function view(id) {
+  ["v-setup", "v-question", "v-result"].forEach(v => $(v).hidden = v !== id);
+}
+
+function setBar() { $("bar").style.width = set ? `${(qi + (checked ? 1 : 0)) / set.questions.length * 100}%` : "0"; }
+
+function start() {
+  if (!set) { $("err-setup").textContent = "Please choose a practice set."; return; }
+  qi = 0; results = [];
+  track("practice_start", { set: set.id });
+  $("tool-title").textContent = set.title;
+  view("v-question"); renderQ();
+}
+
+function renderQ() {
+  const q = set.questions[qi];
+  picked = null; checked = false;
+  $("tool-status").textContent = `Question ${qi + 1} of ${set.questions.length}`;
+  $("q-topic").textContent = `${set.title} · ${q.topic}`;
+  $("q-text").textContent = q.text;
+  const opts = $("opts"); opts.innerHTML = "";
+  q.options.forEach((o, i) => {
+    const b = document.createElement("button");
+    b.type = "button"; b.className = "opt"; b.dataset.i = i; b.setAttribute("aria-pressed", "false");
+    const l = document.createElement("span"); l.className = "let"; l.textContent = LETTERS[i];
+    const t = document.createElement("span"); t.textContent = o;
+    b.append(l, t); opts.appendChild(b);
+  });
+  $("feedback").hidden = true; $("err-q").textContent = "";
+  $("check").textContent = "Check answer";
+  setBar();
+}
+
+$("opts").addEventListener("click", e => {
+  const b = e.target.closest(".opt"); if (!b || checked) return;
+  $("opts").querySelectorAll(".opt").forEach(x => x.setAttribute("aria-pressed", x === b));
+  picked = +b.dataset.i; $("err-q").textContent = "";
+});
+
+$("check").addEventListener("click", () => {
+  const q = set.questions[qi];
+  if (!checked) {
+    if (picked === null) { $("err-q").textContent = "Please choose an answer."; return; }
+    checked = true;
+    const ok = picked === q.answer;
+    results.push({ topic: q.topic, ok });
+    track("practice_answer", { set: set.id, question: qi + 1, topic: q.topic, correct: ok });
+    $("opts").querySelectorAll(".opt").forEach((b, i) => {
+      b.disabled = true;
+      if (i === q.answer) b.classList.add("right");
+      else if (i === picked) b.classList.add("wrong");
+    });
+    $("feedback").hidden = false;
+    $("feedback").classList.toggle("miss", !ok);
+    $("fb-title").textContent = ok ? "Correct." : `Not quite. The answer is ${LETTERS[q.answer]}.`;
+    const steps = $("fb-steps"); steps.innerHTML = "";
+    q.steps.forEach(s => { const li = document.createElement("li"); li.textContent = s; steps.appendChild(li); });
+    $("check").textContent = qi < set.questions.length - 1 ? "Next question" : "See my results";
+    setBar();
+  } else if (qi < set.questions.length - 1) {
+    qi++; renderQ();
+  } else {
+    finish();
+  }
+});
+
+function finish() {
+  const right = results.filter(r => r.ok).length;
+  track("practice_finish", { set: set.id, score: right, total: results.length });
+  $("tool-status").textContent = "Complete";
+  $("score").textContent = `${right} out of ${results.length}`;
+  const body = $("res-rows"); body.innerHTML = "";
+  results.forEach((r, i) => {
+    const tr = document.createElement("tr");
+    const a = document.createElement("td"); a.textContent = `Question ${i + 1}`;
+    const b = document.createElement("td"); b.textContent = r.topic;
+    const c = document.createElement("td"); c.className = "mark " + (r.ok ? "ok" : "no"); c.textContent = r.ok ? "Correct" : "Revise";
+    tr.append(a, b, c); body.appendChild(tr);
+  });
+  const miss = results.filter(r => !r.ok).map(r => r.topic);
+  $("res-line").textContent = miss.length ? `Topics to revise: ${miss.join(", ")}.` : "Well done. Every answer in this set was correct.";
+  $("bar").style.width = "100%";
+  view("v-result");
+}
+
+$("start").addEventListener("click", start);
+$("retry").addEventListener("click", start);
+function backToSets() { $("tool-title").textContent = "Choose a practice set"; $("tool-status").textContent = ""; $("bar").style.width = "0"; view("v-setup"); }
+$("again").addEventListener("click", backToSets);
+$("quit").addEventListener("click", backToSets);
+</script>
+</body></html>
