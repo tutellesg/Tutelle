@@ -1,6 +1,6 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Tutelle Past Year Papers</title>
-<meta name="description" content="Past year exam papers by level, subject and year, for revision at home.">
+<meta name="description" content="Past year exam papers, worksheets and quizzes by level and subject, for revision at home.">
 <script>try{if(localStorage.getItem('tutelle-mode')==='dark')document.documentElement.dataset.mode='dark'}catch(e){}</script>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0NCA1MCI+PHBhdGggZD0iTTIgMmg0MHYyNmMwIDExLTkgMTctMjAgMjBDMTEgNDUgMiAzOSAyIDI4eiIgZmlsbD0iIzFGNkI0NyIvPjxwYXRoIGQ9Ik0xMSAxMmgyMnY1LjVoLTguMlYzOWgtNS42VjE3LjVIMTF6IiBmaWxsPSIjRkZGRkZGIi8+PC9zdmc+Cg==">
 <link rel="icon" type="image/png" sizes="32x32" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAABx0lEQVR4nOyXzysEYRjHv8/YCAe54ICVuBAXDo6KloMDJ8pBObJywcnBwYm90Db+AW2UlKKY9uAgFCcuCsXYRHsS1vqx83gpml2zZnbstKn9HKb3eX9+5nnfpndcyDAufeAe6vCB0AQH0ZgPr2Rl3FCAiRsJ1AoHIeBFH7uQYbIC/0OgpbYRdtg/PTLtY0lgaXQGdqjydpr2yZ4BSwJ9cxM/6qZ7vagpq/wsn92omFz2ww6WBIwO00P06bt8H41YOnC2BZwkK5AVkOIipggch570UWIGLuA8F/ogLgMEDsFhxI3oDMkEXiWsw0FYEAM2kUzg2q+cgGHvk2aNvZC8lTwDHzBiwyweSDMsLsQi/eOJ9T8EVDm4A9J8SDva7KWs7CbWkmHfKUjusGdFNPcgDYitX1RLlAExr5bYlmM4YhtcXF+xhlxXtYga8DcCajg0CDn8ZtRIZqPdQ54xEE2LYh5S41m8+qRI+6/bmQMT7g7Od4uaqwJColz8NdXBCoxV5rdudSG4YdbVNAN6yr3tDZImjYhh/UQoiFuTERGzBTSKzYf8wWOrc6Yk8EXpmKcwN8ptpFHX5+JEGy/5HLz1KY9IEVsC6eQdAAD//+XALpcAAAAGSURBVAMARD+Llzs/Qc4AAAAASUVORK5CYII=">
@@ -242,10 +242,34 @@ footer .legal .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;ga
 .filters label{font-size:13.5px;font-weight:600;display:grid;gap:6px}
 .count{display:flex;justify-content:space-between;align-items:center;gap:12px;font-size:14px;color:var(--ink-2);margin-bottom:10px}
 .lock{display:inline-flex;align-items:center;gap:6px}
-td .btn.small{padding:7px 12px;font-size:13.5px}
-td.act{text-align:right;white-space:nowrap;padding-right:12px}
-#rows td:nth-child(5){white-space:normal;min-width:140px}
-.papers .table-wrap table{min-width:600px}
+.ptable{table-layout:fixed;min-width:0}
+.ptable col.c-sub{width:118px}.ptable col.c-lv{width:72px}.ptable col.c-yr{width:62px}.ptable col.c-act{width:104px}
+.ptable thead th{padding:10px 12px;font-size:14px}
+.ptable tbody th,.ptable tbody td{padding:11px 12px;vertical-align:middle;white-space:normal}
+.ptable tbody th{font-weight:400}
+.ptable .title{display:block;font-weight:700;line-height:1.3}
+.ptable .school{display:block;font-size:14px;color:var(--ink-2);line-height:1.35;margin-top:2px}
+.ptable .meta{display:none}
+.ptable td.act{text-align:right;padding-right:12px}
+.ptable td .btn.small{padding:7px 12px;font-size:13.5px}
+.ans{display:inline-block;margin-top:4px;font-size:12px;font-weight:600;color:var(--ink-2)}
+.ans.yes{color:var(--accent-strong)}
+.ans.yes::before{content:"\2713\00a0"}
+.pager{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:12px;font-size:14px;color:var(--ink-2)}
+.pager .pages{display:flex;gap:4px;flex-wrap:wrap}
+.pager button{font:inherit;font-size:14px;min-width:36px;height:36px;padding:0 10px;border:1px solid var(--line-strong);background:var(--bg);color:var(--ink);cursor:pointer}
+.pager button:hover:not(:disabled){background:var(--accent-wash)}
+.pager button[aria-current="page"]{background:var(--accent);border-color:var(--accent);color:var(--on-accent);font-weight:700}
+.pager button:disabled{opacity:.45;cursor:default}
+.pager .gap{align-self:center;padding:0 4px}
+@media (max-width:640px){
+  .ptable col.c-sub,.ptable col.c-lv,.ptable col.c-yr,.ptable thead th:nth-child(2),.ptable thead th:nth-child(3),.ptable thead th:nth-child(4),.ptable tbody td.c-hide{display:none}
+  .ptable col.c-act{width:96px}
+  .ptable tbody th{padding-right:6px}
+  .ptable .meta{display:block;font-size:13px;color:var(--ink-2);margin-top:3px}
+}
+.only{display:inline-flex;align-items:center;gap:7px;font-size:13.5px;font-weight:600;cursor:pointer}
+.only input{width:16px;height:16px;accent-color:var(--accent);margin:0}
 .empty{padding:22px;text-align:center;color:var(--ink-2)}
 .access{position:sticky;top:16px}
 .access ul{display:grid;gap:6px;font-size:14.5px;color:var(--ink-2)}
@@ -278,7 +302,7 @@ td.act{text-align:right;white-space:nowrap;padding-right:12px}
   <div class="wrap">
     <p class="crumbs"><a href="index.html">Home</a> › Past year papers</p>
     <h1>Past year papers</h1>
-    <p class="lede">Exam papers by level, subject and year, for revision at home before school exams. Free for parents: sign up once and open any paper straight away.</p>
+    <p class="lede">School exam papers, worksheets and quizzes by level and subject, for revision at home. Free for parents: sign up once and open any paper straight away.</p>
   </div>
 </div>
 
@@ -290,18 +314,20 @@ td.act{text-align:right;white-space:nowrap;padding-right:12px}
           <div class="row">
             <label>Level<select id="f-level"><option value="">All levels</option></select></label>
             <label>Subject<select id="f-subject"><option value="">All subjects</option></select></label>
+            <label>Type<select id="f-type"><option value="">All types</option></select></label>
             <label>Year<select id="f-year"><option value="">All years</option></select></label>
-            <label>Exam<select id="f-type"><option value="">All exams</option></select></label>
           </div>
         </div>
-        <div class="count"><span id="count" aria-live="polite">Loading papers…</span><span class="sample" id="sample-tag" hidden>Sample listing</span></div>
+        <div class="count"><span id="count" aria-live="polite">Loading papers…</span><span class="sample" id="sample-tag" hidden>Sample listing</span><label class="only"><input type="checkbox" id="f-ans"> With answers only</label></div>
         <p class="err" id="view-msg" role="alert"></p>
         <div class="table-wrap">
-          <table>
-            <thead><tr><th scope="col">Year</th><th scope="col">Level</th><th scope="col">Subject</th><th scope="col">Exam</th><th scope="col">School</th><th scope="col"><span class="sr">Action</span></th></tr></thead>
+          <table class="ptable">
+            <colgroup><col class="c-paper"><col class="c-sub"><col class="c-lv"><col class="c-yr"><col class="c-act"></colgroup>
+            <thead><tr><th scope="col">Paper</th><th scope="col">Subject</th><th scope="col">Level</th><th scope="col">Year</th><th scope="col"><span class="sr">Action</span></th></tr></thead>
             <tbody id="rows"></tbody>
           </table>
         </div>
+        <nav class="pager" id="pager" aria-label="Pages of papers" hidden><span id="pager-info"></span><div class="pages" id="pager-pages"></div></nav>
         <p class="cap">Each paper opens with your name printed on every page, for your family's own revision.</p>
       </div>
 
@@ -477,7 +503,7 @@ const SAMPLE = [
   [2025, "P5", "Mathematics", "SA2", "Sample school C"], [2024, "P6", "English", "Prelim", "Sample school A"],
   [2025, "Sec 4", "A-Math", "Prelim", "Sample school E"], [2025, "Sec 4", "Chemistry", "Prelim", "Sample school F"],
   [2024, "Sec 3", "Physics", "End-of-year", "Sample school G"], [2025, "JC2", "H2 Math", "Prelim", "Sample school H"]
-].map(([year, level, subject, exam, school], i) => ({ id: "sample-" + i, year, level, subject, exam, school }));
+].map(([year, level, subject, exam, school], i) => ({ id: "sample-" + i, year, level, subject, exam, school, category: i === 6 ? "Worksheets" : "Exam papers", has_answers: i % 3 !== 2 }));
 const PASS_KEY = "tutelle-papers-pass";
 
 const $ = id => document.getElementById(id);
@@ -498,28 +524,69 @@ function setupFilters() {
   fill($("f-level"), LEVELS.filter(l => PAPERS.some(p => p.level === l)));
   fill($("f-subject"), uniq("subject").sort());
   fill($("f-year"), uniq("year").sort().reverse());
-  fill($("f-type"), uniq("exam").sort());
+  fill($("f-type"), ["Exam papers", "Worksheets", "Quizzes"].filter(c => PAPERS.some(p => p.category === c)));
+}
+
+const PER_PAGE = 12;
+let page = 1;
+
+function pageList(cur, last) {
+  const set = new Set([1, last, cur - 1, cur, cur + 1].filter(n => n >= 1 && n <= last));
+  const out = []; let prev = 0;
+  [...set].sort((a, b) => a - b).forEach(n => { if (n - prev > 1) out.push(null); out.push(n); prev = n; });
+  return out;
+}
+
+function renderPager(total) {
+  const last = Math.max(1, Math.ceil(total / PER_PAGE));
+  if (page > last) page = last;
+  $("pager").hidden = total <= PER_PAGE;
+  const from = (page - 1) * PER_PAGE + 1, to = Math.min(total, page * PER_PAGE);
+  $("pager-info").textContent = `Showing ${from}–${to} of ${total}`;
+  const box = $("pager-pages"); box.innerHTML = "";
+  const mk = (label, n, opts = {}) => {
+    const b = document.createElement("button"); b.type = "button"; b.textContent = label; b.dataset.page = n;
+    if (opts.aria) b.setAttribute("aria-label", opts.aria);
+    if (opts.current) b.setAttribute("aria-current", "page");
+    if (opts.disabled) b.disabled = true;
+    box.appendChild(b);
+  };
+  mk("‹", page - 1, { aria: "Previous page", disabled: page === 1 });
+  pageList(page, last).forEach(n => {
+    if (n === null) { const g = document.createElement("span"); g.className = "gap"; g.textContent = "…"; box.appendChild(g); }
+    else mk(String(n), n, { aria: `Page ${n}`, current: n === page });
+  });
+  mk("›", page + 1, { aria: "Next page", disabled: page === last });
 }
 
 function render() {
-  const f = { level: $("f-level").value, subject: $("f-subject").value, year: $("f-year").value, exam: $("f-type").value };
-  const list = PAPERS.filter(p => Object.entries(f).every(([k, v]) => !v || String(p[k]) === v))
+  const f = { level: $("f-level").value, subject: $("f-subject").value, year: $("f-year").value, category: $("f-type").value };
+  const onlyAns = $("f-ans").checked;
+  const list = PAPERS.filter(p => Object.entries(f).every(([k, v]) => !v || String(p[k]) === v) && (!onlyAns || p.has_answers === true))
     .sort((a, b) => b.year - a.year || LEVELS.indexOf(b.level) - LEVELS.indexOf(a.level) || a.subject.localeCompare(b.subject) || a.school.localeCompare(b.school));
   const body = $("rows"); body.innerHTML = "";
   if (!list.length) {
     const tr = document.createElement("tr"); const td = document.createElement("td");
-    td.colSpan = 6; td.className = "empty";
-    td.textContent = PAPERS.length ? "No papers match these filters. Try a different year or exam." : "Papers are being added. Sign up now and you can open them as soon as they are ready.";
+    td.colSpan = 5; td.className = "empty";
+    td.textContent = PAPERS.length ? "No papers match these filters. Try a different year or type." : "Papers are being added. Sign up now and you can open them as soon as they are ready.";
     tr.appendChild(td); body.appendChild(tr);
   }
   const pass = getPass();
-  list.forEach(p => {
+  renderPager(list.length);
+  list.slice((page - 1) * PER_PAGE, page * PER_PAGE).forEach(p => {
     const tr = document.createElement("tr");
-    [p.year, p.level, p.subject, p.exam, p.school].forEach((v, i) => { const td = document.createElement(i === 2 ? "th" : "td"); if (i === 2) td.scope = "row"; td.textContent = v; tr.appendChild(td); });
+    const th = document.createElement("th"); th.scope = "row";
+    const el = (cls, text) => { const e = document.createElement("span"); e.className = cls; e.textContent = text; return e; };
+    th.appendChild(el("title", p.exam));
+    th.appendChild(el("school", p.school));
+    th.appendChild(el("meta", `${p.level} · ${p.subject} · ${p.year}`));
+    if (p.has_answers != null) th.appendChild(el("ans" + (p.has_answers ? " yes" : ""), p.has_answers ? "With answers" : "Paper only"));
+    tr.appendChild(th);
+    [p.subject, p.level, p.year].forEach(v => { const td = document.createElement("td"); td.className = "c-hide"; td.textContent = v; tr.appendChild(td); });
     const td = document.createElement("td"); td.className = "act";
     const b = document.createElement("button"); b.type = "button"; b.className = "btn outline small"; b.dataset.id = p.id;
     b.innerHTML = pass ? "View" : '<span class="lock"><svg width="12" height="12" viewBox="0 0 16 16" aria-hidden="true"><rect x="3" y="7" width="10" height="7" rx="1" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M5.5 7V5a2.5 2.5 0 015 0v2" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>View</span>';
-    b.setAttribute("aria-label", `View ${p.year} ${p.level} ${p.subject} ${p.exam}, ${p.school}`);
+    b.setAttribute("aria-label", `View ${p.year} ${p.level} ${p.subject} ${p.exam}, ${p.school}${p.has_answers ? ", with answers" : p.has_answers === false ? ", paper only" : ""}`);
     td.appendChild(b); tr.appendChild(td); body.appendChild(tr);
   });
   $("count").textContent = `${list.length} ${list.length === 1 ? "paper" : "papers"}`;
@@ -536,7 +603,7 @@ function showAccess() {
 async function load() {
   if (!LIVE) { PAPERS = SAMPLE; $("sample-tag").hidden = false; }
   else {
-    try { PAPERS = await dbGet("papers?select=id,level,level_group,subject,year,exam,school&active=eq.true&order=year.desc&limit=5000"); }
+    try { PAPERS = await dbGet("papers?select=id,level,level_group,subject,year,exam,school,has_answers,category&active=eq.true&order=year.desc&limit=5000"); }
     catch (_) { PAPERS = []; $("view-msg").textContent = `The paper list could not be loaded. Please refresh the page, or email ${CONFIG.email}.`; }
   }
   setupFilters(); render(); showAccess();
@@ -545,7 +612,7 @@ async function load() {
 async function openPaper(id, win) {
   const msg = $("view-msg"); msg.textContent = "";
   const p = PAPERS.find(x => x.id === id);
-  track("paper_click", { level: p?.level, subject: p?.subject, year: String(p?.year ?? ""), exam: p?.exam });
+  track("paper_click", { level: p?.level, subject: p?.subject, year: String(p?.year ?? ""), exam: p?.exam, type: p?.category });
   if (!LIVE) { if (win) win.close(); msg.textContent = "This is a preview. On the live site the paper opens here with your name printed on every page."; return; }
   const pass = getPass();
   try {
@@ -572,7 +639,7 @@ $("rows").addEventListener("click", e => {
     pendingPaper = b.dataset.id;
     const p = PAPERS.find(x => x.id === b.dataset.id);
     if (p) $("a-level").value = p.level;
-    track("paper_click", { level: p?.level, subject: p?.subject, year: String(p?.year ?? ""), exam: p?.exam, signedIn: false });
+    track("paper_click", { level: p?.level, subject: p?.subject, year: String(p?.year ?? ""), exam: p?.exam, type: p?.category, signedIn: false });
     $("access").scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "start" });
     $("a-name").focus({ preventScroll: true });
     return;
@@ -581,9 +648,18 @@ $("rows").addEventListener("click", e => {
   openPaper(b.dataset.id, win);
 });
 
-["f-level", "f-subject", "f-year", "f-type"].forEach(id => $(id).addEventListener("change", () => {
+$("pager-pages").addEventListener("click", e => {
+  const b = e.target.closest("button[data-page]"); if (!b || b.disabled) return;
+  page = Number(b.dataset.page); render();
+  const top = $("count").getBoundingClientRect().top + window.scrollY - 12;
+  if (window.scrollY > top) window.scrollTo({ top, behavior: "smooth" });
+  track("paper_page", { page });
+});
+
+["f-level", "f-subject", "f-year", "f-type", "f-ans"].forEach(id => $(id).addEventListener("change", () => {
+  page = 1;
   render();
-  track("paper_filter", { level: $("f-level").value, subject: $("f-subject").value, year: $("f-year").value, exam: $("f-type").value });
+  track("paper_filter", { level: $("f-level").value, subject: $("f-subject").value, year: $("f-year").value, type: $("f-type").value, answers_only: $("f-ans").checked });
 }));
 
 $("access").addEventListener("submit", async e => {
