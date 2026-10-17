@@ -239,6 +239,7 @@ footer .legal .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;ga
 .filters{border:1px solid var(--line-strong);background:var(--bg-alt);padding:16px;display:grid;gap:12px;margin-bottom:16px}
 .filters .row{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
 @media (max-width:640px){.filters .row{grid-template-columns:1fr 1fr}}
+.filters .row.one{grid-template-columns:minmax(0,1fr)}
 .filters label{font-size:13.5px;font-weight:600;display:grid;gap:6px}
 .count{display:flex;justify-content:space-between;align-items:center;gap:12px;font-size:14px;color:var(--ink-2);margin-bottom:10px}
 .lock{display:inline-flex;align-items:center;gap:6px}
@@ -317,6 +318,9 @@ footer .legal .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;ga
             <label>Type<select id="f-type"><option value="">All types</option></select></label>
             <label>Year<select id="f-year"><option value="">All years</option></select></label>
           </div>
+          <div class="row one">
+            <label>School<select id="f-school"><option value="">All schools</option></select></label>
+          </div>
         </div>
         <div class="count"><span id="count" aria-live="polite">Loading papers…</span><span class="sample" id="sample-tag" hidden>Sample listing</span><label class="only"><input type="checkbox" id="f-ans"> With answers only</label></div>
         <p class="err" id="view-msg" role="alert"></p>
@@ -328,7 +332,7 @@ footer .legal .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;ga
           </table>
         </div>
         <nav class="pager" id="pager" aria-label="Pages of papers" hidden><span id="pager-info"></span><div class="pages" id="pager-pages"></div></nav>
-        <p class="cap">Each paper opens with your name printed on every page, for your family's own revision.</p>
+        <p class="cap">Papers are for your family's own revision. Please do not share them.</p>
       </div>
 
       <form class="card access" id="access" novalidate aria-labelledby="acc-title">
@@ -338,7 +342,7 @@ footer .legal .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;ga
             <ul>
               <li><svg width="12" height="12" viewBox="0 0 16 16" aria-hidden="true"><path class="tick" d="M3 8.5l3 3 7-7" fill="none" stroke-width="2.4" stroke-linecap="square"/></svg>Free for parents.</li>
               <li><svg width="12" height="12" viewBox="0 0 16 16" aria-hidden="true"><path class="tick" d="M3 8.5l3 3 7-7" fill="none" stroke-width="2.4" stroke-linecap="square"/></svg>Papers open straight away after you sign up.</li>
-              <li><svg width="12" height="12" viewBox="0 0 16 16" aria-hidden="true"><path class="tick" d="M3 8.5l3 3 7-7" fill="none" stroke-width="2.4" stroke-linecap="square"/></svg>Up to 10 papers a day.</li>
+              <li><svg width="12" height="12" viewBox="0 0 16 16" aria-hidden="true"><path class="tick" d="M3 8.5l3 3 7-7" fill="none" stroke-width="2.4" stroke-linecap="square"/></svg>Up to 3 papers a day.</li>
             </ul>
             <div class="field"><label class="q" for="a-name">Your name</label><input type="text" id="a-name" autocomplete="name"></div>
             <div class="field"><label class="q" for="a-phone">Mobile number</label><div class="tel"><span>+65</span><input type="tel" id="a-phone" inputmode="numeric" autocomplete="tel-national" placeholder="9123 4567"></div></div>
@@ -351,7 +355,7 @@ footer .legal .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;ga
           <div class="step done" id="acc-done" hidden>
             <h3>You have access.</h3>
             <p id="a-hello"></p>
-            <p class="muted" style="font-size:14.5px">Choose View next to any paper. Each one opens in a new tab with your name printed on every page. You can open up to 10 papers a day.</p>
+            <p class="muted" style="font-size:14.5px">Choose View next to any paper. Each one opens in a new tab with your name printed on every page. You can open up to 3 papers a day.</p>
             <p class="note" id="a-preview" hidden>This is a preview: papers open on the live site only.</p>
             <button type="button" class="link-btn" id="a-signout" style="justify-self:start">Not you? Sign out</button>
           </div>
@@ -562,7 +566,13 @@ function renderPager(total) {
 function render() {
   const f = { level: $("f-level").value, subject: $("f-subject").value, year: $("f-year").value, category: $("f-type").value };
   const onlyAns = $("f-ans").checked;
-  const list = PAPERS.filter(p => Object.entries(f).every(([k, v]) => !v || String(p[k]) === v) && (!onlyAns || p.has_answers === true))
+  const base = PAPERS.filter(p => Object.entries(f).every(([k, v]) => !v || String(p[k]) === v) && (!onlyAns || p.has_answers === true));
+  // School list follows the other filters, so parents only see schools that have matching papers.
+  const sel = $("f-school"), keep = sel.value;
+  const schools = [...new Set(base.map(p => p.school))].sort((a, b) => a.localeCompare(b));
+  fill(sel, schools);
+  sel.value = schools.includes(keep) ? keep : "";
+  const list = base.filter(p => !sel.value || p.school === sel.value)
     .sort((a, b) => b.year - a.year || LEVELS.indexOf(b.level) - LEVELS.indexOf(a.level) || a.subject.localeCompare(b.subject) || a.school.localeCompare(b.school));
   const body = $("rows"); body.innerHTML = "";
   if (!list.length) {
@@ -656,10 +666,10 @@ $("pager-pages").addEventListener("click", e => {
   track("paper_page", { page });
 });
 
-["f-level", "f-subject", "f-year", "f-type", "f-ans"].forEach(id => $(id).addEventListener("change", () => {
+["f-level", "f-subject", "f-year", "f-type", "f-school", "f-ans"].forEach(id => $(id).addEventListener("change", () => {
   page = 1;
   render();
-  track("paper_filter", { level: $("f-level").value, subject: $("f-subject").value, year: $("f-year").value, type: $("f-type").value, answers_only: $("f-ans").checked });
+  track("paper_filter", { level: $("f-level").value, subject: $("f-subject").value, year: $("f-year").value, type: $("f-type").value, school: $("f-school").value, answers_only: $("f-ans").checked });
 }));
 
 $("access").addEventListener("submit", async e => {
