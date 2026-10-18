@@ -1,6 +1,6 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Tutelle Practice Questions</title>
-<meta name="description" content="Short practice sets by level and topic, with a worked solution after every answer.">
+<meta name="description" content="Free exam-style practice questions for P6, Sec 1, Sec 2, Sec 4 and JC1, in the style of the PSLE and school papers, with a worked solution after every answer.">
 <script>try{if(localStorage.getItem('tutelle-mode')==='dark')document.documentElement.dataset.mode='dark'}catch(e){}</script>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0NCA1MCI+PHBhdGggZD0iTTIgMmg0MHYyNmMwIDExLTkgMTctMjAgMjBDMTEgNDUgMiAzOSAyIDI4eiIgZmlsbD0iIzFGNkI0NyIvPjxwYXRoIGQ9Ik0xMSAxMmgyMnY1LjVoLTguMlYzOWgtNS42VjE3LjVIMTF6IiBmaWxsPSIjRkZGRkZGIi8+PC9zdmc+Cg==">
 <link rel="icon" type="image/png" sizes="32x32" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAABx0lEQVR4nOyXzysEYRjHv8/YCAe54ICVuBAXDo6KloMDJ8pBObJywcnBwYm90Db+AW2UlKKY9uAgFCcuCsXYRHsS1vqx83gpml2zZnbstKn9HKb3eX9+5nnfpndcyDAufeAe6vCB0AQH0ZgPr2Rl3FCAiRsJ1AoHIeBFH7uQYbIC/0OgpbYRdtg/PTLtY0lgaXQGdqjydpr2yZ4BSwJ9cxM/6qZ7vagpq/wsn92omFz2ww6WBIwO00P06bt8H41YOnC2BZwkK5AVkOIipggch570UWIGLuA8F/ogLgMEDsFhxI3oDMkEXiWsw0FYEAM2kUzg2q+cgGHvk2aNvZC8lTwDHzBiwyweSDMsLsQi/eOJ9T8EVDm4A9J8SDva7KWs7CbWkmHfKUjusGdFNPcgDYitX1RLlAExr5bYlmM4YhtcXF+xhlxXtYga8DcCajg0CDn8ZtRIZqPdQ54xEE2LYh5S41m8+qRI+6/bmQMT7g7Od4uaqwJColz8NdXBCoxV5rdudSG4YdbVNAN6yr3tDZImjYhh/UQoiFuTERGzBTSKzYf8wWOrc6Yk8EXpmKcwN8ptpFHX5+JEGy/5HLz1KY9IEVsC6eQdAAD//+XALpcAAAAGSURBVAMARD+Llzs/Qc4AAAAASUVORK5CYII=">
@@ -248,6 +248,8 @@ footer .legal .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;ga
 .set[aria-pressed="true"]::before{border-color:var(--accent);background:var(--accent);box-shadow:inset 0 0 0 3px var(--bg)}
 .set b{display:block;font-size:16px}
 .set span.t{font-size:14px;color:var(--ink-2)}
+.grp{font-size:13px;font-weight:700;color:var(--ink-2);text-transform:uppercase;letter-spacing:.06em;margin:8px 0 -2px}
+.grp:first-child{margin-top:0}
 .set span.n{font-size:13px;color:var(--ink-2);white-space:nowrap;padding-top:2px}
 .topic{font-size:13px;font-weight:600;color:var(--accent-strong);text-transform:uppercase;letter-spacing:.05em}
 .qtext{font-size:18px;line-height:1.55;font-weight:500}
@@ -310,7 +312,7 @@ footer .legal .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;ga
   <div class="wrap">
     <p class="crumbs"><a href="index.html">Home</a> › Practice questions</p>
     <h1>Practice questions</h1>
-    <p class="lede">Short sets of questions by level and topic. After each answer you see the worked solution, so your child knows where a mistake was made.</p>
+    <p class="lede">Exam-style questions by level and subject, modelled on the PSLE and school papers. After each answer your child sees the worked solution, so they know exactly where a mistake was made.</p>
   </div>
 </div>
 
@@ -324,11 +326,11 @@ footer .legal .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;ga
 
           <div class="step" id="v-setup">
             <div class="field">
-              <div class="q" id="q-sets">Sample sets</div>
+              <div class="q" id="q-sets">Practice sets</div>
               <div class="sets" role="group" aria-labelledby="q-sets" id="sets"></div>
             </div>
             <p class="err" id="err-setup" role="alert"></p>
-            <div class="actions"><span class="muted" style="font-size:14px">About 5 minutes per set</span><button type="button" class="btn" id="start">Start practice</button></div>
+            <div class="actions"><span class="muted" style="font-size:14px">6 questions, about 10 minutes</span><button type="button" class="btn" id="start">Start practice</button></div>
           </div>
 
           <div class="step" id="v-question" hidden>
@@ -351,7 +353,7 @@ footer .legal .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;ga
           </div>
 
         </div>
-        <div class="card-foot">These are sample sets. The full question bank will be organised by level, subject and topic.</div>
+        <div class="card-foot">Questions are written by Tutelle in the style of school exam papers and the PSLE, with a worked solution for each. New sets are added over time.</div>
       </div>
 
       <aside class="side">
@@ -497,53 +499,209 @@ function validMobile(v) { return /^[3689]\d{7}$/.test(sgMobile(v)); }
 function refCode(prefix) { return prefix + String(Math.floor(1000 + Math.random() * 9000)); }
 
 
+// Original questions written by Tutelle in the style of Singapore school exam papers.
 const SETS = [
-  { id: "p6math", title: "P6 Mathematics", topic: "Fractions, ratio and percentage", questions: [
-    { topic: "Fractions", text: "Ali had $120. He spent 3/8 of it on a book and 1/3 of the remaining money on a bag. How much money did he have left?",
-      options: ["$45", "$50", "$55", "$75"], answer: 1,
-      steps: ["Spent on the book: 3/8 × $120 = $45", "Money remaining: $120 − $45 = $75", "Spent on the bag: 1/3 × $75 = $25", "Money left: $75 − $25 = $50"] },
-    { topic: "Ratio", text: "The ratio of boys to girls in a class is 3 : 5. There are 12 more girls than boys. How many pupils are there in the class?",
-      options: ["32", "40", "48", "60"], answer: 2,
-      steps: ["Difference between girls and boys: 5 − 3 = 2 units", "2 units = 12, so 1 unit = 6", "Total pupils: 3 + 5 = 8 units", "8 × 6 = 48 pupils"] },
-    { topic: "Percentage", text: "A shirt costs $40. Its price is reduced by 15% during a sale. What is the sale price?",
-      options: ["$25", "$34", "$36", "$46"], answer: 1,
-      steps: ["Discount: 15% × $40 = $6", "Sale price: $40 − $6 = $34"] }
+  { id: "p6math", group: "Primary", title: "P6 Mathematics", topic: "Fractions, ratio, percentage, speed, average, circles", style: "PSLE style", questions: [
+    { topic: "Fractions", text: "Mrs Tan baked some cookies. She gave 1/4 of them to her neighbour and 2/3 of the remainder to her class. She had 45 cookies left. How many cookies did she bake?",
+      options: ["135", "180", "240", "270"], answer: 1,
+      steps: ["After giving 1/4 away, 3/4 of the cookies remained.", "She gave 2/3 of the remainder away, so 1/3 of the remainder was left.", "Left: 1/3 × 3/4 = 1/4 of all the cookies.", "1/4 of the cookies = 45, so she baked 45 × 4 = 180."] },
+    { topic: "Ratio", text: "The ratio of Ben's stickers to Chloe's stickers was 5 : 3. After Ben gave 24 stickers to Chloe, they had the same number of stickers. How many stickers did Ben have at first?",
+      options: ["72", "96", "120", "192"], answer: 2,
+      steps: ["The total does not change: 5 + 3 = 8 units.", "When they have the same number, each has 8 ÷ 2 = 4 units.", "Ben gave away 5 − 4 = 1 unit, so 1 unit = 24.", "Ben had 5 units at first: 5 × 24 = 120."] },
+    { topic: "Percentage", text: "A bag cost $80. During a sale, its price was reduced by 20%. Members got a further 10% off the sale price. How much did a member pay for the bag?",
+      options: ["$56.00", "$57.60", "$58.40", "$64.00"], answer: 1,
+      steps: ["Sale price: 80% of $80 = $64.", "Member price: 90% of $64 = $57.60.", "The two discounts are not the same as 30% off, because the 10% is taken from the lower sale price."] },
+    { topic: "Speed", text: "Jia Hui cycled from her home to the park at 12 km/h and took 25 minutes. She cycled home along the same route at 10 km/h. How long did the return trip take?",
+      options: ["20 minutes", "25 minutes", "30 minutes", "35 minutes"], answer: 2,
+      steps: ["25 minutes = 25/60 h.", "Distance: 12 × 25/60 = 5 km.", "Return time: 5 ÷ 10 = 1/2 h = 30 minutes."] },
+    { topic: "Average", text: "The average mass of 4 boys is 42 kg. When Sam joins them, the average mass of the 5 boys becomes 44 kg. What is Sam's mass?",
+      options: ["44 kg", "46 kg", "52 kg", "56 kg"], answer: 2,
+      steps: ["Total mass of 4 boys: 4 × 42 = 168 kg.", "Total mass of 5 boys: 5 × 44 = 220 kg.", "Sam's mass: 220 − 168 = 52 kg."] },
+    { topic: "Circles", text: "A semicircle has a diameter of 14 cm. Find its perimeter. (Take π = 22/7.)",
+      options: ["22 cm", "29 cm", "36 cm", "58 cm"], answer: 2,
+      steps: ["Curved edge: 1/2 × 22/7 × 14 = 22 cm.", "The perimeter also includes the straight edge, the diameter: 14 cm.", "Perimeter: 22 + 14 = 36 cm."] }
   ]},
-  { id: "s3amath", title: "Sec 3 Additional Mathematics", topic: "Quadratic equations", questions: [
-    { topic: "Nature of roots", text: "Find the range of values of k for which x² + 4x + k = 0 has no real roots.",
-      options: ["k < 4", "k > 4", "k ≥ 4", "k > −4"], answer: 1,
-      steps: ["No real roots when b² − 4ac < 0", "4² − 4(1)(k) < 0", "16 − 4k < 0", "k > 4"] },
-    { topic: "Completing the square", text: "Express x² − 6x + 11 in the form (x − a)² + b.",
-      options: ["(x − 3)² + 2", "(x − 3)² + 11", "(x − 6)² − 25", "(x + 3)² + 2"], answer: 0,
-      steps: ["Half of the x coefficient: −6 ÷ 2 = −3", "x² − 6x = (x − 3)² − 9", "x² − 6x + 11 = (x − 3)² − 9 + 11", "= (x − 3)² + 2"] },
-    { topic: "Sum and product of roots", text: "The roots of 2x² − 5x + 1 = 0 are α and β. Find the value of α² + β².",
-      options: ["17/4", "21/4", "25/4", "29/4"], answer: 1,
-      steps: ["α + β = 5/2 and αβ = 1/2", "α² + β² = (α + β)² − 2αβ", "= 25/4 − 2(1/2)", "= 25/4 − 1 = 21/4"] }
+  { id: "p6sci", group: "Primary", title: "P6 Science", topic: "Heat, electricity, plants, food chains, light, forces", style: "PSLE style", questions: [
+    { topic: "Heat", text: "Ali poured the same amount of hot water into four cups of the same size and shape. Each cup was made of a different material. Which cup would keep the water hot for the longest time?",
+      options: ["Steel cup", "Glass cup", "Plastic foam cup", "Aluminium cup"], answer: 2,
+      steps: ["The water stays hot longest when the cup lets heat pass through it most slowly.", "Plastic foam is a poor conductor of heat.", "Steel and aluminium are good conductors, so heat is lost through them quickly. Glass conducts heat better than plastic foam."] },
+    { topic: "Electricity", text: "Two identical bulbs are connected in series to a battery. One of the bulbs fuses. What happens to the other bulb?",
+      options: ["It becomes brighter.", "It stays equally bright.", "It goes out.", "It becomes dimmer."], answer: 2,
+      steps: ["In a series circuit there is only one path for the current.", "A fused bulb breaks that path, so the circuit is open.", "No current flows, so the other bulb goes out."] },
+    { topic: "Plant transport", text: "Which part of a plant carries water from the roots to the leaves?",
+      options: ["Food-carrying tubes", "Water-carrying tubes", "Stomata", "Flowers"], answer: 1,
+      steps: ["Water-carrying tubes carry water and dissolved minerals from the roots up to the leaves.", "Food-carrying tubes carry food made in the leaves to other parts of the plant.", "Stomata are tiny openings on leaves where gases are exchanged."] },
+    { topic: "Food chains", text: "In the food chain grass → grasshopper → frog → snake, what is most likely to happen to the number of grasshoppers at first if all the frogs are removed?",
+      options: ["It increases.", "It decreases.", "It stays the same.", "The grasshoppers die out."], answer: 0,
+      steps: ["Frogs feed on grasshoppers.", "With no frogs, fewer grasshoppers are eaten.", "So the number of grasshoppers increases at first."] },
+    { topic: "Light", text: "A torch is moved closer to an object that stands in front of a screen. What happens to the shadow of the object on the screen?",
+      options: ["It becomes bigger.", "It becomes smaller.", "It stays the same size.", "It disappears."], answer: 0,
+      steps: ["When the light source is closer to the object, the object blocks a wider spread of light.", "So the shadow on the screen becomes bigger."] },
+    { topic: "Forces", text: "Which change would reduce the friction between a heavy box and the floor when the box is pushed?",
+      options: ["Putting more books into the box", "Placing the box on rollers", "Pushing the box faster", "Placing a rubber mat under the box"], answer: 1,
+      steps: ["Rollers reduce the surface area in contact and let the box roll instead of slide, so friction is reduced.", "A heavier box presses harder on the floor, which increases friction.", "Rubber is a rough material that increases friction."] }
   ]},
-  { id: "p5sci", title: "P5 Science", topic: "Matter, cells and magnets", questions: [
-    { topic: "Matter", text: "Which statement is true of all gases?",
-      options: ["They have a definite shape.", "They have a definite volume.", "They have mass and occupy space.", "They cannot be compressed."], answer: 2,
-      steps: ["All matter, including gases, has mass and occupies space.", "Gases take the shape and volume of their container, so they have no definite shape or volume.", "Gases can be compressed."] },
-    { topic: "Cells", text: "Which part is found in a plant cell but not in an animal cell?",
-      options: ["Cell membrane", "Nucleus", "Cytoplasm", "Cell wall"], answer: 3,
-      steps: ["Plant and animal cells both have a cell membrane, nucleus and cytoplasm.", "Only plant cells have a cell wall (and chloroplasts)."] },
-    { topic: "Magnets", text: "Which object will be attracted to a magnet?",
-      options: ["A copper coin", "A steel paper clip", "An aluminium can", "A plastic ruler"], answer: 1,
-      steps: ["Magnets attract magnetic materials such as iron, steel, nickel and cobalt.", "Steel contains iron, so the paper clip is attracted.", "Copper, aluminium and plastic are non-magnetic."] }
+  { id: "p6eng", group: "Primary", title: "P6 English", topic: "Grammar and vocabulary", style: "PSLE Booklet A style", questions: [
+    { topic: "Subject-verb agreement", text: "Neither the teacher nor the pupils ______ aware of the change in the schedule.",
+      options: ["was", "were", "is", "has been"], answer: 1,
+      steps: ["With 'neither … nor', the verb agrees with the subject closer to it.", "The closer subject is 'the pupils', which is plural.", "The sentence is in the past, so 'were' is correct."] },
+    { topic: "Conditionals", text: "If I ______ you, I would apologise to her at once.",
+      options: ["was", "am", "were", "be"], answer: 2,
+      steps: ["This is an imagined situation, shown by 'would apologise'.", "For imagined situations, 'If I were …' is the correct form."] },
+    { topic: "Verb forms", text: "The children were told to stop ______ along the corridor.",
+      options: ["run", "to run", "running", "ran"], answer: 2,
+      steps: ["'Stop' followed by the -ing form means to end an action: stop running.", "'Stop to run' would mean they stopped something else in order to run."] },
+    { topic: "Vocabulary", text: "The hikers were ______ after the long climb, so they rested under a tree.",
+      options: ["exhausted", "exhausting", "exhaust", "exhaustion"], answer: 0,
+      steps: ["The blank describes how the hikers felt, so an adjective is needed.", "'-ed' adjectives describe feelings: exhausted.", "'Exhausting' describes something that causes tiredness, such as the climb."] },
+    { topic: "Question tags", text: "You have completed the project, ______?",
+      options: ["didn't you", "haven't you", "have you", "hasn't it"], answer: 1,
+      steps: ["The statement uses the helping verb 'have' and is positive.", "A positive statement takes a negative tag with the same helping verb and subject: haven't you?"] },
+    { topic: "Prepositions", text: "My brother is very good ______ solving puzzles.",
+      options: ["in", "on", "at", "with"], answer: 2,
+      steps: ["The fixed expression is 'good at' something.", "So: good at solving puzzles."] }
+  ]},
+  { id: "s1math", group: "Secondary", title: "Sec 1 Mathematics", topic: "Algebra, equations, primes, angles, percentage", style: "End-of-year style · G3", questions: [
+    { topic: "Expansion", text: "Expand and simplify 3(2x − 5) − 2(x − 4).",
+      options: ["4x − 7", "4x − 23", "4x − 1", "8x − 7"], answer: 0,
+      steps: ["3(2x − 5) = 6x − 15", "−2(x − 4) = −2x + 8 (the minus sign changes both signs)", "6x − 15 − 2x + 8 = 4x − 7"] },
+    { topic: "Factorisation", text: "Factorise completely 12ab − 18b.",
+      options: ["6(2ab − 3b)", "6b(2a − 3)", "3b(4a − 6)", "b(12a − 18)"], answer: 1,
+      steps: ["The highest common factor of 12ab and 18b is 6b.", "12ab ÷ 6b = 2a and 18b ÷ 6b = 3.", "12ab − 18b = 6b(2a − 3). The other options can still be factorised further."] },
+    { topic: "Linear equations", text: "Solve (x + 2)/3 = (2x − 1)/5.",
+      options: ["x = 11", "x = 13", "x = −13", "x = 7"], answer: 1,
+      steps: ["Multiply both sides by 15: 5(x + 2) = 3(2x − 1)", "5x + 10 = 6x − 3", "x = 13"] },
+    { topic: "Polygons", text: "Each interior angle of a regular polygon is 156°. How many sides does the polygon have?",
+      options: ["12", "13", "15", "18"], answer: 2,
+      steps: ["Each exterior angle: 180° − 156° = 24°.", "The exterior angles of any polygon add up to 360°.", "Number of sides: 360° ÷ 24° = 15."] },
+    { topic: "Prime factorisation", text: "Express 360 as a product of its prime factors, in index notation.",
+      options: ["2³ × 3² × 5", "2² × 3³ × 5", "2³ × 3 × 15", "2⁴ × 3 × 5"], answer: 0,
+      steps: ["360 = 2 × 180 = 2 × 2 × 90 = 2 × 2 × 2 × 45", "45 = 3 × 3 × 5", "360 = 2³ × 3² × 5. (15 is not a prime number.)"] },
+    { topic: "Percentage change", text: "The price of a phone increased from $800 to $920. Find the percentage increase.",
+      options: ["12%", "13.0%", "15%", "20%"], answer: 2,
+      steps: ["Increase: $920 − $800 = $120.", "Percentage increase is found from the original price: 120/800 × 100% = 15%.", "Dividing by the new price ($920) gives 13.0%, a common mistake."] }
+  ]},
+  { id: "s1sci", group: "Secondary", title: "Sec 1 Science", topic: "Density, separation, cells, particles, light", style: "End-of-year style", questions: [
+    { topic: "Density", text: "A metal block has a mass of 540 g and a volume of 200 cm³. What is its density?",
+      options: ["0.37 g/cm³", "2.7 g/cm³", "340 g/cm³", "108 000 g/cm³"], answer: 1,
+      steps: ["Density = mass ÷ volume", "= 540 g ÷ 200 cm³", "= 2.7 g/cm³"] },
+    { topic: "Separation techniques", text: "Which method is best for obtaining pure water from seawater?",
+      options: ["Filtration", "Evaporation to dryness", "Distillation", "Paper chromatography"], answer: 2,
+      steps: ["The salt is dissolved, so filtration cannot remove it.", "Evaporation to dryness keeps the salt but loses the water.", "Distillation boils the water off and condenses the steam, collecting pure water."] },
+    { topic: "Cells", text: "Which part of a cell controls the movement of substances into and out of the cell?",
+      options: ["Cell wall", "Cell membrane", "Nucleus", "Vacuole"], answer: 1,
+      steps: ["The cell membrane is partially permeable: it lets some substances in and out but not others.", "The cell wall gives a plant cell its shape and support.", "The nucleus controls the cell's activities."] },
+    { topic: "Particulate model", text: "Why can a gas be compressed easily?",
+      options: ["Its particles are very small.", "Its particles are far apart, with a lot of space between them.", "Its particles move very slowly.", "Its particles have no mass."], answer: 1,
+      steps: ["In a gas, the particles are far apart.", "Pushing on the gas moves the particles closer together into that empty space, so the volume decreases."] },
+    { topic: "Reflection", text: "A ray of light strikes a plane mirror. The angle between the ray and the surface of the mirror is 35°. What is the angle of reflection?",
+      options: ["35°", "55°", "70°", "110°"], answer: 1,
+      steps: ["Angles of incidence and reflection are measured from the normal, which is at 90° to the mirror.", "Angle of incidence: 90° − 35° = 55°.", "Angle of reflection = angle of incidence = 55°."] },
+    { topic: "Measurement", text: "Which instrument should be used to measure the internal diameter of a test tube most accurately?",
+      options: ["Metre rule", "Measuring tape", "Vernier calipers", "Measuring cylinder"], answer: 2,
+      steps: ["Vernier calipers have inside jaws for internal diameters.", "They read to 0.01 cm, more precise than a ruler or tape."] }
+  ]},
+  { id: "s2math", group: "Secondary", title: "Sec 2 Mathematics", topic: "Simultaneous equations, Pythagoras, probability, proportion", style: "End-of-year style · G2 and G3", questions: [
+    { topic: "Simultaneous equations", text: "Solve the simultaneous equations 2x + 3y = 13 and x − y = 4.",
+      options: ["x = 5, y = 1", "x = 1, y = 5", "x = 4, y = 0", "x = 3.5, y = 1.5"], answer: 0,
+      steps: ["From the second equation: x = y + 4.", "Substitute: 2(y + 4) + 3y = 13, so 5y + 8 = 13 and y = 1.", "x = 1 + 4 = 5. Check: 2(5) + 3(1) = 13."] },
+    { topic: "Pythagoras' theorem", text: "A ladder 6.5 m long leans against a vertical wall. Its foot is 2.5 m from the wall. How high up the wall does the ladder reach?",
+      options: ["4 m", "6 m", "7 m", "9 m"], answer: 1,
+      steps: ["The ladder is the hypotenuse.", "height² = 6.5² − 2.5² = 42.25 − 6.25 = 36", "height = √36 = 6 m"] },
+    { topic: "Expansion", text: "Expand (2x − 3)².",
+      options: ["4x² − 9", "4x² + 9", "4x² − 12x + 9", "4x² − 6x + 9"], answer: 2,
+      steps: ["(a − b)² = a² − 2ab + b²", "(2x)² − 2(2x)(3) + 3²", "= 4x² − 12x + 9"] },
+    { topic: "Probability", text: "A bag contains 4 red, 5 blue and 3 green balls. One ball is taken out at random. What is the probability that it is not blue?",
+      options: ["5/12", "7/12", "1/3", "3/4"], answer: 1,
+      steps: ["Total balls: 4 + 5 + 3 = 12.", "Balls that are not blue: 4 + 3 = 7.", "P(not blue) = 7/12."] },
+    { topic: "Coordinate geometry", text: "Find the gradient of the line joining A(−1, 3) and B(3, −5).",
+      options: ["−2", "2", "−1/2", "1/2"], answer: 0,
+      steps: ["Gradient = (y₂ − y₁) ÷ (x₂ − x₁)", "= (−5 − 3) ÷ (3 − (−1))", "= −8 ÷ 4 = −2"] },
+    { topic: "Proportion", text: "y is directly proportional to x². When x = 3, y = 18. Find y when x = 5.",
+      options: ["30", "50", "75", "150"], answer: 1,
+      steps: ["y = kx², so 18 = k × 9 and k = 2.", "When x = 5: y = 2 × 25 = 50."] }
+  ]},
+  { id: "s4emath", group: "Secondary", title: "Sec 4 E-Math", topic: "Interest, indices, trigonometry, statistics, similarity, bearings", style: "Prelim style · G3", questions: [
+    { topic: "Compound interest", text: "$5000 is invested at 3% per annum, compounded yearly. How much interest is earned after 2 years?",
+      options: ["$300.00", "$304.50", "$309.14", "$5304.50"], answer: 1,
+      steps: ["Amount after 2 years: 5000 × 1.03² = $5304.50", "Interest = amount − principal", "= 5304.50 − 5000 = $304.50"] },
+    { topic: "Indices", text: "Simplify (2x³)² ÷ 8x⁴, leaving your answer with positive indices.",
+      options: ["x²/2", "2x²", "x/2", "1/(2x²)"], answer: 0,
+      steps: ["(2x³)² = 4x⁶", "4x⁶ ÷ 8x⁴ = (4/8) × x⁶⁻⁴", "= x²/2"] },
+    { topic: "Cosine rule", text: "In triangle ABC, AB = 7 cm, AC = 8 cm and angle BAC = 60°. Find BC, correct to 3 significant figures.",
+      options: ["6.24 cm", "7.55 cm", "8.06 cm", "10.6 cm"], answer: 1,
+      steps: ["BC² = AB² + AC² − 2(AB)(AC)cos A", "= 49 + 64 − 2(7)(8)(0.5) = 57", "BC = √57 = 7.55 cm (3 s.f.)"] },
+    { topic: "Statistics", text: "The marks of 7 students are 12, 15, 9, 15, 18, 11 and 14. Which statement is true?",
+      options: ["The median is 14 and the mode is 15.", "The median is 15 and the mode is 15.", "The mean is 14 and the median is 15.", "The mean is 15 and the mode is 14."], answer: 0,
+      steps: ["In order: 9, 11, 12, 14, 15, 15, 18.", "Median: the middle (4th) value, 14. Mode: 15 appears most often.", "Mean: 94 ÷ 7 = 13.4, so the last two options are wrong."] },
+    { topic: "Similar solids", text: "Two similar cones have heights of 6 cm and 9 cm. The volume of the smaller cone is 80 cm³. Find the volume of the larger cone.",
+      options: ["120 cm³", "180 cm³", "240 cm³", "270 cm³"], answer: 3,
+      steps: ["Ratio of lengths: 9/6 = 3/2.", "Ratio of volumes = (ratio of lengths)³ = 27/8.", "Volume: 80 × 27/8 = 270 cm³."] },
+    { topic: "Bearings", text: "The bearing of B from A is 065°. What is the bearing of A from B?",
+      options: ["115°", "245°", "295°", "335°"], answer: 1,
+      steps: ["The reverse bearing differs by 180°.", "065° + 180° = 245°."] }
+  ]},
+  { id: "s4amath", group: "Secondary", title: "Sec 4 A-Math", topic: "Polynomials, logarithms, calculus, binomial, trigonometry", style: "Prelim style", questions: [
+    { topic: "Remainder theorem", text: "When x³ + ax² − 5x + 6 is divided by x − 2, the remainder is 8. Find the value of a.",
+      options: ["−1", "1", "2", "3/2"], answer: 1,
+      steps: ["By the remainder theorem, f(2) = 8.", "8 + 4a − 10 + 6 = 8", "4a + 4 = 8, so a = 1"] },
+    { topic: "Logarithms", text: "Solve log₂(x + 3) + log₂(x − 3) = 4.",
+      options: ["x = 5", "x = ±5", "x = −5", "x = √13"], answer: 0,
+      steps: ["log₂[(x + 3)(x − 3)] = 4, so x² − 9 = 2⁴ = 16.", "x² = 25, so x = 5 or x = −5.", "x = −5 makes x − 3 negative, and a log of a negative number is undefined. So x = 5 only."] },
+    { topic: "Differentiation", text: "Find the gradient of the curve y = (3x − 1)⁴ at the point where x = 1.",
+      options: ["32", "48", "96", "192"], answer: 2,
+      steps: ["By the chain rule, dy/dx = 4(3x − 1)³ × 3 = 12(3x − 1)³.", "At x = 1: 12 × 2³ = 12 × 8 = 96."] },
+    { topic: "Binomial theorem", text: "Find the coefficient of x² in the expansion of (2 − x)⁶.",
+      options: ["−240", "60", "240", "960"], answer: 2,
+      steps: ["General term: ⁶Cᵣ × 2⁶⁻ʳ × (−x)ʳ", "For x², r = 2: ⁶C₂ × 2⁴ × (−1)² = 15 × 16 × 1", "Coefficient = 240"] },
+    { topic: "Trigonometry", text: "Given that sin A = 3/5 and A is obtuse, find the value of tan A.",
+      options: ["3/4", "−3/4", "4/3", "−4/3"], answer: 1,
+      steps: ["Use a 3-4-5 triangle: the adjacent side is 4.", "A is obtuse (second quadrant), where cos A is negative: cos A = −4/5.", "tan A = sin A ÷ cos A = (3/5) ÷ (−4/5) = −3/4"] },
+    { topic: "Integration", text: "Evaluate ∫ from 1 to 2 of (6x² − 4x) dx.",
+      options: ["4", "6", "8", "10"], answer: 2,
+      steps: ["Integrate: [2x³ − 2x²] from 1 to 2.", "At x = 2: 16 − 8 = 8. At x = 1: 2 − 2 = 0.", "8 − 0 = 8"] }
+  ]},
+  { id: "jc1math", group: "JC", title: "JC1 H2 Mathematics", topic: "Inequalities, series, differentiation, vectors, functions", style: "Promo style", questions: [
+    { topic: "Inequalities", text: "Solve (x + 1)/(x − 2) ≤ 0.",
+      options: ["−1 ≤ x < 2", "−1 < x ≤ 2", "x ≤ −1 or x > 2", "−1 ≤ x ≤ 2"], answer: 0,
+      steps: ["Critical values: x = −1 (numerator) and x = 2 (denominator).", "The expression is negative between −1 and 2, and zero at x = −1.", "x = 2 is excluded because the denominator would be zero. So −1 ≤ x < 2."] },
+    { topic: "Arithmetic progression", text: "The 3rd term of an arithmetic progression is 11 and the 8th term is 31. Find the sum of the first 20 terms.",
+      options: ["760", "820", "840", "1640"], answer: 1,
+      steps: ["a + 2d = 11 and a + 7d = 31, so 5d = 20, d = 4 and a = 3.", "S₂₀ = 20/2 × [2(3) + 19(4)]", "= 10 × 82 = 820"] },
+    { topic: "Geometric progression", text: "A geometric series has first term 24 and sum to infinity 36. Find the common ratio.",
+      options: ["1/3", "2/3", "1/2", "3/2"], answer: 0,
+      steps: ["S∞ = a ÷ (1 − r), so 36 = 24 ÷ (1 − r).", "1 − r = 24/36 = 2/3", "r = 1/3 (and |r| < 1, so the sum to infinity exists)"] },
+    { topic: "Differentiation", text: "Given y = x e²ˣ, find dy/dx.",
+      options: ["e²ˣ(1 + 2x)", "2x e²ˣ", "e²ˣ(1 + x)", "2e²ˣ"], answer: 0,
+      steps: ["Use the product rule: d(uv)/dx = u'v + uv'.", "u = x, u' = 1; v = e²ˣ, v' = 2e²ˣ.", "dy/dx = e²ˣ + 2x e²ˣ = e²ˣ(1 + 2x)"] },
+    { topic: "Vectors", text: "Find the angle between a = i + 2j + 2k and b = 2i − j + 2k, correct to 1 decimal place.",
+      options: ["26.4°", "63.6°", "90.0°", "116.4°"], answer: 1,
+      steps: ["a · b = 2 − 2 + 4 = 4", "|a| = √9 = 3 and |b| = √9 = 3", "cos θ = 4/9, so θ = 63.6°"] },
+    { topic: "Composite functions", text: "f(x) = 2x + 3 and g(x) = x². Find fg(2).",
+      options: ["7", "11", "25", "49"], answer: 1,
+      steps: ["fg(2) means f(g(2)): apply g first.", "g(2) = 4", "f(4) = 2(4) + 3 = 11. (49 is gf(2), the other order.)"] }
   ]}
 ];
 
 const LETTERS = ["A", "B", "C", "D"];
-let set = null, qi = 0, picked = null, checked = false, results = [];
+let set = null, qi = 0, picked = null, checked = false, results = [], order = [];
+// Options are shown in a fresh random order each time, so the answer letter cannot be memorised.
+const shuffled = n => { const a = [...Array(n).keys()]; for (let i = n - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
 const $ = id => document.getElementById(id);
 
 const setsBox = $("sets");
+let lastGroup = "";
 SETS.forEach(s => {
+  if (s.group !== lastGroup) {
+    lastGroup = s.group;
+    const h = document.createElement("p"); h.className = "grp"; h.textContent = s.group === "JC" ? "Junior college" : s.group;
+    setsBox.appendChild(h);
+  }
   const b = document.createElement("button");
   b.type = "button"; b.className = "set"; b.dataset.id = s.id; b.setAttribute("aria-pressed", "false");
   const mid = document.createElement("span");
   const t = document.createElement("b"); t.textContent = s.title;
-  const tp = document.createElement("span"); tp.className = "t"; tp.textContent = s.topic;
+  const tp = document.createElement("span"); tp.className = "t"; tp.textContent = `${s.style} · ${s.topic}`;
   mid.append(t, tp);
   const n = document.createElement("span"); n.className = "n"; n.textContent = s.questions.length + " questions";
   b.append(mid, n);
@@ -577,11 +735,12 @@ function renderQ() {
   $("q-topic").textContent = `${set.title} · ${q.topic}`;
   $("q-text").textContent = q.text;
   const opts = $("opts"); opts.innerHTML = "";
-  q.options.forEach((o, i) => {
+  order = shuffled(q.options.length);
+  order.forEach((oi, pos) => {
     const b = document.createElement("button");
-    b.type = "button"; b.className = "opt"; b.dataset.i = i; b.setAttribute("aria-pressed", "false");
-    const l = document.createElement("span"); l.className = "let"; l.textContent = LETTERS[i];
-    const t = document.createElement("span"); t.textContent = o;
+    b.type = "button"; b.className = "opt"; b.dataset.i = oi; b.setAttribute("aria-pressed", "false");
+    const l = document.createElement("span"); l.className = "let"; l.textContent = LETTERS[pos];
+    const t = document.createElement("span"); t.textContent = q.options[oi];
     b.append(l, t); opts.appendChild(b);
   });
   $("feedback").hidden = true; $("err-q").textContent = "";
@@ -603,14 +762,15 @@ $("check").addEventListener("click", () => {
     const ok = picked === q.answer;
     results.push({ topic: q.topic, ok });
     track("practice_answer", { set: set.id, question: qi + 1, topic: q.topic, correct: ok });
-    $("opts").querySelectorAll(".opt").forEach((b, i) => {
+    $("opts").querySelectorAll(".opt").forEach(b => {
+      const i = +b.dataset.i;
       b.disabled = true;
       if (i === q.answer) b.classList.add("right");
       else if (i === picked) b.classList.add("wrong");
     });
     $("feedback").hidden = false;
     $("feedback").classList.toggle("miss", !ok);
-    $("fb-title").textContent = ok ? "Correct." : `Not quite. The answer is ${LETTERS[q.answer]}.`;
+    $("fb-title").textContent = ok ? "Correct." : `Not quite. The answer is ${LETTERS[order.indexOf(q.answer)]}.`;
     const steps = $("fb-steps"); steps.innerHTML = "";
     q.steps.forEach(s => { const li = document.createElement("li"); li.textContent = s; steps.appendChild(li); });
     $("check").textContent = qi < set.questions.length - 1 ? "Next question" : "See my results";

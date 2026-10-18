@@ -248,6 +248,8 @@ footer .legal .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;ga
 .part .hint{margin-top:-8px}
 .subgroup{display:grid;gap:8px}
 .subgroup .lbl{font-size:13px;font-weight:700;color:var(--ink-2);text-transform:uppercase;letter-spacing:.05em}
+.fmsg{font-size:13.5px;color:var(--danger);min-height:0;margin-top:2px}
+.fmsg:empty{display:none}
 .enr-more{display:grid;gap:6px;max-width:420px}
 .enr-own{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px}
 .pills{display:flex;flex-wrap:wrap;gap:8px;list-style:none;margin:0;padding:0}
@@ -323,10 +325,10 @@ footer .legal .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;ga
             <h2><span class="n">1</span>About you</h2>
             <div class="row2">
               <div class="field"><label class="q" for="t-name">Full name</label><input type="text" id="t-name" autocomplete="name"></div>
-              <div class="field"><label class="q" for="t-phone">Mobile number</label><div class="tel"><span>+65</span><input type="tel" id="t-phone" inputmode="numeric" autocomplete="tel-national" placeholder="9123 4567"></div></div>
+              <div class="field"><label class="q" for="t-phone">Mobile number</label><div class="tel"><span>+65</span><input type="tel" id="t-phone" inputmode="numeric" autocomplete="tel-national" maxlength="8" pattern="[89][0-9]{7}" placeholder="91234567" aria-describedby="h-phone"></div><div class="fmsg" id="h-phone"></div></div>
             </div>
             <div class="row2">
-              <div class="field"><label class="q" for="t-email">Email</label><input type="email" id="t-email" autocomplete="email"></div>
+              <div class="field"><label class="q" for="t-email">Email</label><input type="email" id="t-email" autocomplete="email" placeholder="name@example.com" aria-describedby="h-email"><div class="fmsg" id="h-email"></div></div>
               <div class="field"><label class="q" for="t-tg">Telegram username <span class="muted">(optional)</span></label><input type="text" id="t-tg" placeholder="@username" autocomplete="off"></div>
             </div>
             <div class="field">
@@ -436,7 +438,7 @@ footer .legal .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;ga
             <div class="row2">
               <div class="field"><label class="q" for="t-exp">Tutoring experience</label>
                 <select id="t-exp"><option>Less than 1 year</option><option selected>1 to 3 years</option><option>3 to 5 years</option><option>5 to 10 years</option><option>More than 10 years</option></select></div>
-              <div class="field"><label class="q" for="t-rate">Lowest hourly rate you accept</label><input type="text" id="t-rate" inputmode="numeric" placeholder="S$, e.g. 40"></div>
+              <div class="field"><label class="q" for="t-rate">Lowest hourly rate you accept</label><input type="text" id="t-rate" inputmode="numeric" maxlength="3" pattern="[0-9]*" placeholder="S$, e.g. 40" aria-describedby="h-rate"><div class="fmsg" id="h-rate"></div></div>
             </div>
             <div class="field"><label class="q" for="t-intro">A short introduction <span class="muted">(optional)</span></label>
               <textarea id="t-intro" maxlength="800" placeholder="e.g. Taught Sec 3 and 4 A-Math for 5 years. Most students improved by two grades."></textarea>
@@ -446,7 +448,7 @@ footer .legal .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;ga
 
           <fieldset class="part" id="p4">
             <h2><span class="n">4</span>Documents</h2>
-            <p class="hint" style="margin-top:-6px">PDF, JPG or PNG, up to 5 MB each. Please cover your NRIC number on any document; we do not need it.</p>
+            <p class="hint" style="margin-top:-6px">PDF, JPG or PNG, up to 5 MB each.</p>
             <div class="field">
               <div class="doc-head"><span class="q">CV</span><small>PDF or Word · required</small></div>
               <label class="drop" data-role="cv"><input type="file" accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"><b>Choose your CV</b><span>or drag it here</span></label>
@@ -640,7 +642,22 @@ const LIMITS = { cv: 1, certs: 5, others: 3 };
 const TYPES = { cv: /\.(pdf|docx?)$/i, certs: /\.(pdf|jpe?g|png)$/i, others: /\.(pdf|jpe?g|png)$/i };
 const MAX_FILE = 5 * 1024 * 1024, MAX_TOTAL = 20 * 1024 * 1024;
 const S = { tutor_type: "", gender: "Prefer not to say", levels: [], areas: [] };
-const ENR = new Set();                       // enrichment activities chosen
+const ENR = new Set();
+
+// Field rules as the tutor types: digits only for mobile and rate, a proper email address.
+const fieldRules = {
+  "t-phone": { clean: v => v.replace(/\D/g, "").slice(0, 8), ok: v => /^[89]\d{7}$/.test(v), msg: v => v && !/^[89]/.test(v) ? "Singapore mobile numbers start with 8 or 9." : "Please enter 8 digits, e.g. 91234567.", box: "h-phone" },
+  "t-rate": { clean: v => v.replace(/\D/g, "").slice(0, 3), ok: v => !v || (+v >= 10 && +v <= 500), msg: () => "Please enter a whole number of dollars, e.g. 40.", box: "h-rate" },
+  "t-email": { clean: v => v.replace(/\s/g, ""), ok: v => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v), msg: v => v.includes("@") ? "Please check the part after @, e.g. name@example.com." : "An email address needs an @, e.g. name@example.com.", box: "h-email" },
+};
+Object.entries(fieldRules).forEach(([id, r]) => {
+  const el = $(id);
+  el.addEventListener("input", () => {
+    const c = r.clean(el.value); if (c !== el.value) el.value = c;
+    if (id === "t-phone" && c && !/^[89]/.test(c)) $(r.box).textContent = r.msg(c); else if (r.ok(c)) $(r.box).textContent = "";
+  });
+  el.addEventListener("blur", () => { const v = el.value; $(r.box).textContent = v && !r.ok(v) ? r.msg(v) : ""; });
+});                       // enrichment activities chosen
 const ACADEMIC = ["Primary", "Secondary", "JC"];
 const picked = new Set();
 const FILES = { cv: [], certs: [], others: [] };
@@ -750,7 +767,7 @@ function check() {
   const fails = [];
   const need = (ok, n, msg) => { if (!ok) fails.push([n, msg]); };
   need(v("t-name").length >= 2, 1, "Please add your full name.");
-  need(/^[89]\d{7}$/.test(sgMobile(v("t-phone"))), 1, "Please enter an 8-digit Singapore mobile number, e.g. 9123 4567.");
+  need(/^[89]\d{7}$/.test(sgMobile(v("t-phone"))), 1, "Please enter an 8-digit mobile number starting with 8 or 9, e.g. 91234567.");
   need(/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v("t-email")), 1, "Please enter a valid email address.");
   need(!!S.tutor_type, 1, "Please choose what describes you best.");
   need(!!v("t-qual"), 2, "Please choose your highest qualification.");
