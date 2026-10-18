@@ -139,7 +139,7 @@ section.tint{background:var(--bg-alt)}
 
 /* form parts */
 .step{display:grid;gap:18px}
-.field{display:grid;gap:7px}
+.field{display:grid;gap:7px;align-content:start}
 .field>.q{font-weight:600;font-size:15px}
 .field>.hint{font-size:13.5px;color:var(--ink-2);margin-top:-3px}
 .chips{display:flex;flex-wrap:wrap;gap:8px}
@@ -162,6 +162,9 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--accent);
 .consent{display:grid;grid-template-columns:20px 1fr;gap:10px;font-size:13.5px;color:var(--ink-2);align-items:start}
 .consent input{width:18px;height:18px;margin:2px 0 0;accent-color:var(--accent)}
 .err{color:var(--danger);font-size:14px}
+.fmsg{font-size:13.5px;color:var(--danger);margin:0}
+.fmsg:empty{display:none}
+input[aria-invalid]{border-color:var(--danger);box-shadow:0 0 0 1px var(--danger)}
 .err:empty{display:none}
 .actions{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-top:4px}
 .done{display:grid;gap:12px}
@@ -248,8 +251,6 @@ footer .legal .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;ga
 .part .hint{margin-top:-8px}
 .subgroup{display:grid;gap:8px}
 .subgroup .lbl{font-size:13px;font-weight:700;color:var(--ink-2);text-transform:uppercase;letter-spacing:.05em}
-.fmsg{font-size:13.5px;color:var(--danger);min-height:0;margin-top:2px}
-.fmsg:empty{display:none}
 .enr-more{display:grid;gap:6px;max-width:420px}
 .enr-own{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px}
 .pills{display:flex;flex-wrap:wrap;gap:8px;list-style:none;margin:0;padding:0}
@@ -324,12 +325,12 @@ footer .legal .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;ga
           <fieldset class="part" id="p1">
             <h2><span class="n">1</span>About you</h2>
             <div class="row2">
-              <div class="field"><label class="q" for="t-name">Full name</label><input type="text" id="t-name" autocomplete="name"></div>
-              <div class="field"><label class="q" for="t-phone">Mobile number</label><div class="tel"><span>+65</span><input type="tel" id="t-phone" inputmode="numeric" autocomplete="tel-national" maxlength="8" pattern="[89][0-9]{7}" placeholder="91234567" aria-describedby="h-phone"></div><div class="fmsg" id="h-phone"></div></div>
+              <div class="field"><label class="q" for="t-name">Full name</label><input type="text" id="t-name" maxlength="80" data-check="name" data-required="true"></div>
+              <div class="field"><label class="q" for="t-phone">Mobile number</label><div class="tel"><span>+65</span><input type="tel" id="t-phone" inputmode="numeric" maxlength="8" placeholder="91234567" aria-describedby="h-phone" data-check="mobile" data-required="true"></div><div class="fmsg" id="h-phone"></div></div>
             </div>
             <div class="row2">
-              <div class="field"><label class="q" for="t-email">Email</label><input type="email" id="t-email" autocomplete="email" placeholder="name@example.com" aria-describedby="h-email"><div class="fmsg" id="h-email"></div></div>
-              <div class="field"><label class="q" for="t-tg">Telegram username <span class="muted">(optional)</span></label><input type="text" id="t-tg" placeholder="@username" autocomplete="off"></div>
+              <div class="field"><label class="q" for="t-email">Email</label><input type="email" id="t-email" maxlength="120" placeholder="name@example.com" aria-describedby="h-email" data-check="email" data-required="true"><div class="fmsg" id="h-email"></div></div>
+              <div class="field"><label class="q" for="t-tg">Telegram username <span class="muted">(optional)</span></label><input type="text" id="t-tg" maxlength="40" placeholder="@username" autocapitalize="off" spellcheck="false" aria-describedby="h-tg" data-check="telegram"><p class="hint" id="h-tg-hint">With or without the @ is fine.</p><div class="fmsg" id="h-tg"></div></div>
             </div>
             <div class="field">
               <div class="q" id="q-type">Which describes you best?</div>
@@ -357,10 +358,10 @@ footer .legal .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;ga
             <div class="row2">
               <div class="field"><label class="q" for="t-qual">Highest qualification</label>
                 <select id="t-qual"><option value="">Choose</option><option>O-Level, N-Level or ITE</option><option>A-Level, IB or Diploma</option><option>Bachelor's degree (in progress)</option><option>Bachelor's degree</option><option>Master's degree</option><option>PhD</option><option>NIE teaching qualification</option><option>Coaching or instructor certificate</option></select></div>
-              <div class="field"><label class="q" for="t-year">Year of graduation <span class="muted">(or expected)</span></label><input type="text" id="t-year" inputmode="numeric" maxlength="4" placeholder="e.g. 2022"></div>
+              <div class="field"><label class="q" for="t-year">Year of graduation <span class="muted">(or expected)</span></label><input type="text" id="t-year" inputmode="numeric" maxlength="4" placeholder="e.g. 2022" data-check="year"></div>
             </div>
             <div class="row2">
-              <div class="field"><label class="q" for="t-inst">School, university or certifying body</label><input type="text" id="t-inst" placeholder="e.g. NUS, or SwimSafer"></div>
+              <div class="field"><label class="q" for="t-inst">School, university or certifying body</label><input type="text" id="t-inst" maxlength="100" placeholder="e.g. NUS, or SwimSafer" data-check="text" data-required="true"></div>
               <div class="field"><label class="q" for="t-course">Course or major <span class="muted">(optional)</span></label><input type="text" id="t-course" placeholder="e.g. Mathematics"></div>
             </div>
             <p class="err" id="err-2" role="alert"></p>
@@ -438,7 +439,7 @@ footer .legal .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;ga
             <div class="row2">
               <div class="field"><label class="q" for="t-exp">Tutoring experience</label>
                 <select id="t-exp"><option>Less than 1 year</option><option selected>1 to 3 years</option><option>3 to 5 years</option><option>5 to 10 years</option><option>More than 10 years</option></select></div>
-              <div class="field"><label class="q" for="t-rate">Lowest hourly rate you accept</label><input type="text" id="t-rate" inputmode="numeric" maxlength="3" pattern="[0-9]*" placeholder="S$, e.g. 40" aria-describedby="h-rate"><div class="fmsg" id="h-rate"></div></div>
+              <div class="field"><label class="q" for="t-rate">Lowest hourly rate you accept</label><input type="text" id="t-rate" inputmode="numeric" maxlength="3" placeholder="S$, e.g. 40" aria-describedby="h-rate" data-check="rate"><div class="fmsg" id="h-rate"></div></div>
             </div>
             <div class="field"><label class="q" for="t-intro">A short introduction <span class="muted">(optional)</span></label>
               <textarea id="t-intro" maxlength="800" placeholder="e.g. Taught Sec 3 and 4 A-Math for 5 years. Most students improved by two grades."></textarea>
@@ -629,7 +630,54 @@ function bindChips(group, state, onPick) {
 }
 
 function sgMobile(v) { return v.replace(/\D/g, "").replace(/^65(?=\d{8}$)/, ""); }
-function validMobile(v) { return /^[3689]\d{7}$/.test(sgMobile(v)); }
+function validMobile(v) { return /^[89]\d{7}$/.test(sgMobile(v)); }
+function tgHandle(v) { return v.trim().replace(/^(https?:\/\/)?(www\.)?(t\.me|telegram\.me)\//i, "").replace(/^@+/, ""); }
+
+/* Form fields: no saved-entry pop-ups, and a clear message as soon as the person leaves a field that is not right.
+   Mark a field with data-check="mobile|email|telegram|rate|year|name|text". data-required="true" also flags it when left empty on submit. */
+const CHECKS = {
+  mobile: { clean: v => v.replace(/\D/g, "").slice(0, 8), ok: v => /^[89]\d{7}$/.test(v),
+    msg: v => !/^[89]/.test(v) ? "Singapore mobile numbers start with 8 or 9." : "Please enter all 8 digits, e.g. 91234567.", empty: "Please add your mobile number." },
+  email: { clean: v => v.replace(/\s/g, ""), ok: v => /^[^\s@]+@[^\s@]+\.[^\s@.]{2,}$/.test(v),
+    msg: v => !v.includes("@") ? "Please include an @, e.g. name@example.com." : "Please check the part after the @, e.g. name@example.com.", empty: "Please add your email address." },
+  telegram: { clean: v => v.replace(/\s/g, ""), ok: v => /^[A-Za-z][A-Za-z0-9_]{4,31}$/.test(tgHandle(v)),
+    msg: () => "Please check your Telegram username. It has 5 to 32 letters, numbers or underscores, e.g. @tutor_sg.", empty: "Please add your Telegram username." },
+  rate: { clean: v => v.replace(/\D/g, "").slice(0, 3), ok: v => +v >= 10 && +v <= 500,
+    msg: () => "Please enter a whole number of dollars between 10 and 500, e.g. 40.", empty: "Please add your lowest hourly rate." },
+  year: { clean: v => v.replace(/\D/g, "").slice(0, 4), ok: v => /^(19[6-9]\d|20\d\d)$/.test(v) && +v <= new Date().getFullYear() + 6,
+    msg: () => "Please enter a four-digit year, e.g. 2022.", empty: "Please add the year." },
+  name: { clean: v => v, ok: v => v.trim().length >= 2 && !/\d/.test(v),
+    msg: v => /\d/.test(v) ? "Please use letters only for your name." : "Please add your full name.", empty: "Please add your name." },
+  text: { clean: v => v, ok: v => v.trim().length >= 2, msg: () => "Please add a little more detail.", empty: "Please fill in this field." },
+};
+function fieldMsgBox(el) {
+  const id = el.getAttribute("aria-describedby"); let box = id && document.getElementById(id);
+  if (box && box.classList.contains("fmsg")) return box;
+  box = document.createElement("p"); box.className = "fmsg"; box.id = el.id + "-msg"; box.setAttribute("aria-live", "polite");
+  (el.closest(".tel") || el).after(box);
+  el.setAttribute("aria-describedby", [id, box.id].filter(Boolean).join(" "));
+  return box;
+}
+function checkField(el, onSubmit) {
+  const r = CHECKS[el.dataset.check]; if (!r) return true;
+  const v = el.value.trim(), box = fieldMsgBox(el);
+  const msg = !v ? (onSubmit && el.dataset.required === "true" ? r.empty : "") : (r.ok(v) ? "" : r.msg(v));
+  box.textContent = msg; el.toggleAttribute("aria-invalid", !!msg);
+  return !msg;
+}
+function checkFields(root) { let ok = true; root.querySelectorAll("[data-check]").forEach(el => { if (!checkField(el, true)) ok = false; }); return ok; }
+document.querySelectorAll("form").forEach(f => f.setAttribute("autocomplete", "off"));
+document.querySelectorAll("form input:not([type=checkbox]):not([type=radio]):not([type=file]), form textarea").forEach(el => el.setAttribute("autocomplete", "off"));
+document.querySelectorAll("[data-check]").forEach(el => {
+  const r = CHECKS[el.dataset.check]; if (!r) return;
+  el.addEventListener("input", () => {
+    const c = r.clean(el.value); if (c !== el.value) el.value = c;
+    if (el.hasAttribute("aria-invalid") && r.ok(c.trim())) checkField(el);                       // clear the message once it is fixed
+    else if (el.dataset.check === "mobile" && c && !/^[89]/.test(c)) checkField(el);              // say so straight away
+  });
+  el.addEventListener("blur", () => { if (el.dataset.check === "telegram" && el.value) el.value = "@" + tgHandle(el.value); checkField(el); });
+});
+document.addEventListener("submit", e => checkFields(e.target), true);
 function refCode(prefix) { return prefix + String(Math.floor(1000 + Math.random() * 9000)); }
 
 const $ = id => document.getElementById(id);
@@ -644,20 +692,7 @@ const MAX_FILE = 5 * 1024 * 1024, MAX_TOTAL = 20 * 1024 * 1024;
 const S = { tutor_type: "", gender: "Prefer not to say", levels: [], areas: [] };
 const ENR = new Set();
 
-// Field rules as the tutor types: digits only for mobile and rate, a proper email address.
-const fieldRules = {
-  "t-phone": { clean: v => v.replace(/\D/g, "").slice(0, 8), ok: v => /^[89]\d{7}$/.test(v), msg: v => v && !/^[89]/.test(v) ? "Singapore mobile numbers start with 8 or 9." : "Please enter 8 digits, e.g. 91234567.", box: "h-phone" },
-  "t-rate": { clean: v => v.replace(/\D/g, "").slice(0, 3), ok: v => !v || (+v >= 10 && +v <= 500), msg: () => "Please enter a whole number of dollars, e.g. 40.", box: "h-rate" },
-  "t-email": { clean: v => v.replace(/\s/g, ""), ok: v => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v), msg: v => v.includes("@") ? "Please check the part after @, e.g. name@example.com." : "An email address needs an @, e.g. name@example.com.", box: "h-email" },
-};
-Object.entries(fieldRules).forEach(([id, r]) => {
-  const el = $(id);
-  el.addEventListener("input", () => {
-    const c = r.clean(el.value); if (c !== el.value) el.value = c;
-    if (id === "t-phone" && c && !/^[89]/.test(c)) $(r.box).textContent = r.msg(c); else if (r.ok(c)) $(r.box).textContent = "";
-  });
-  el.addEventListener("blur", () => { const v = el.value; $(r.box).textContent = v && !r.ok(v) ? r.msg(v) : ""; });
-});                       // enrichment activities chosen
+
 const ACADEMIC = ["Primary", "Secondary", "JC"];
 const picked = new Set();
 const FILES = { cv: [], certs: [], others: [] };
@@ -766,9 +801,10 @@ function check() {
   const v = id => $(id).value.trim();
   const fails = [];
   const need = (ok, n, msg) => { if (!ok) fails.push([n, msg]); };
-  need(v("t-name").length >= 2, 1, "Please add your full name.");
+  need(v("t-name").length >= 2 && !/\d/.test(v("t-name")), 1, "Please add your full name.");
   need(/^[89]\d{7}$/.test(sgMobile(v("t-phone"))), 1, "Please enter an 8-digit mobile number starting with 8 or 9, e.g. 91234567.");
   need(/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v("t-email")), 1, "Please enter a valid email address.");
+  need(!v("t-tg") || /^[A-Za-z][A-Za-z0-9_]{4,31}$/.test(tgHandle(v("t-tg"))), 1, "Please check your Telegram username.");
   need(!!S.tutor_type, 1, "Please choose what describes you best.");
   need(!!v("t-qual"), 2, "Please choose your highest qualification.");
   need(v("t-inst").length >= 2, 2, "Please add the school or university for that qualification.");
@@ -779,7 +815,7 @@ function check() {
   need(!academic.length || subjects.length > 0, 3, "Please choose at least one subject.");
   need(!S.levels.includes("Enrichment") || ENR.size > 0, 3, "Please choose at least one activity you teach or coach.");
   need(S.areas.length > 0, 3, "Please choose where you can teach.");
-  need(!v("t-rate") || (/^\d{2,3}$/.test(v("t-rate")) && +v("t-rate") >= 10), 3, "Please enter your lowest hourly rate in dollars, e.g. 40.");
+  need(!v("t-rate") || (+v("t-rate") >= 10 && +v("t-rate") <= 500), 3, "Please enter your lowest hourly rate in dollars, e.g. 40.");
   need(FILES.cv.length === 1, 4, "Please attach your CV.");
   need(FILES.certs.length >= 1, 4, "Please attach at least one certificate or transcript.");
   need($("t-consent").checked, 5, "Please tick the box to confirm your details.");
@@ -821,7 +857,7 @@ $("tform").addEventListener("submit", async e => {
   if (!LIVE) { fill.style.width = "100%"; setTimeout(() => done("T00000", "https://t.me/TutelleSGBot", true), 400); return; }
   const fd = new FormData();
   const v = id => $(id).value.trim();
-  [["name", v("t-name")], ["phone", sgMobile(v("t-phone"))], ["email", v("t-email")], ["telegram", v("t-tg")], ["tutor_type", S.tutor_type],
+  [["name", v("t-name")], ["phone", sgMobile(v("t-phone"))], ["email", v("t-email")], ["telegram", tgHandle(v("t-tg"))], ["tutor_type", S.tutor_type],
    ["gender", S.gender], ["qualification", v("t-qual")], ["institution", v("t-inst")], ["course", v("t-course")], ["grad_year", v("t-year")],
    ["experience", v("t-exp")], ["min_rate", v("t-rate")], ["intro", v("t-intro")], ["consent", "yes"], ["website", v("t-website")]]
     .forEach(([k, val]) => fd.append(k, val));

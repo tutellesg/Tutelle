@@ -139,7 +139,7 @@ section.tint{background:var(--bg-alt)}
 
 /* form parts */
 .step{display:grid;gap:18px}
-.field{display:grid;gap:7px}
+.field{display:grid;gap:7px;align-content:start}
 .field>.q{font-weight:600;font-size:15px}
 .field>.hint{font-size:13.5px;color:var(--ink-2);margin-top:-3px}
 .chips{display:flex;flex-wrap:wrap;gap:8px}
@@ -162,6 +162,9 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--accent);
 .consent{display:grid;grid-template-columns:20px 1fr;gap:10px;font-size:13.5px;color:var(--ink-2);align-items:start}
 .consent input{width:18px;height:18px;margin:2px 0 0;accent-color:var(--accent)}
 .err{color:var(--danger);font-size:14px}
+.fmsg{font-size:13.5px;color:var(--danger);margin:0}
+.fmsg:empty{display:none}
+input[aria-invalid]{border-color:var(--danger);box-shadow:0 0 0 1px var(--danger)}
 .err:empty{display:none}
 .actions{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-top:4px}
 .done{display:grid;gap:12px}
@@ -334,10 +337,10 @@ footer .legal .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;ga
               <div class="field"><label class="q" for="age">Child's age</label><select id="age"></select></div>
               <div class="field"><label class="q" for="format">Class type</label><select id="format"><option>Group class</option><option>One-to-one</option><option>Either</option></select></div>
             </div>
-            <div class="field"><label class="q" for="area">Nearest MRT station or postal code</label><input type="text" id="area" autocomplete="postal-code" placeholder="e.g. Tampines or 520123"></div>
+            <div class="field"><label class="q" for="area">Nearest MRT station or postal code</label><input type="text" id="area" placeholder="e.g. Tampines or 520123"></div>
             <div class="field"><label class="q" for="times">Preferred days and times</label><input type="text" id="times" placeholder="e.g. Saturday mornings"></div>
-            <div class="field"><label class="q" for="name">Your name</label><input type="text" id="name" autocomplete="name"></div>
-            <div class="field"><label class="q" for="phone">Mobile number</label><div class="tel"><span>+65</span><input type="tel" id="phone" inputmode="numeric" autocomplete="tel-national" placeholder="9123 4567"></div></div>
+            <div class="field"><label class="q" for="name">Your name</label><input type="text" id="name" maxlength="80" data-check="name" data-required="true"></div>
+            <div class="field"><label class="q" for="phone">Mobile number</label><div class="tel"><span>+65</span><input type="tel" id="phone" inputmode="numeric" maxlength="8" placeholder="91234567" data-check="mobile" data-required="true"></div></div>
             <label class="consent"><input type="checkbox" id="consent"><span>I agree to Tutelle using these details to find a class and contact me about this request.</span></label>
             <p class="err" id="err" role="alert"></p>
             <button type="submit" class="btn" id="submit">Send request</button>
@@ -497,7 +500,54 @@ function bindChips(group, state, onPick) {
 }
 
 function sgMobile(v) { return v.replace(/\D/g, "").replace(/^65(?=\d{8}$)/, ""); }
-function validMobile(v) { return /^[3689]\d{7}$/.test(sgMobile(v)); }
+function validMobile(v) { return /^[89]\d{7}$/.test(sgMobile(v)); }
+function tgHandle(v) { return v.trim().replace(/^(https?:\/\/)?(www\.)?(t\.me|telegram\.me)\//i, "").replace(/^@+/, ""); }
+
+/* Form fields: no saved-entry pop-ups, and a clear message as soon as the person leaves a field that is not right.
+   Mark a field with data-check="mobile|email|telegram|rate|year|name|text". data-required="true" also flags it when left empty on submit. */
+const CHECKS = {
+  mobile: { clean: v => v.replace(/\D/g, "").slice(0, 8), ok: v => /^[89]\d{7}$/.test(v),
+    msg: v => !/^[89]/.test(v) ? "Singapore mobile numbers start with 8 or 9." : "Please enter all 8 digits, e.g. 91234567.", empty: "Please add your mobile number." },
+  email: { clean: v => v.replace(/\s/g, ""), ok: v => /^[^\s@]+@[^\s@]+\.[^\s@.]{2,}$/.test(v),
+    msg: v => !v.includes("@") ? "Please include an @, e.g. name@example.com." : "Please check the part after the @, e.g. name@example.com.", empty: "Please add your email address." },
+  telegram: { clean: v => v.replace(/\s/g, ""), ok: v => /^[A-Za-z][A-Za-z0-9_]{4,31}$/.test(tgHandle(v)),
+    msg: () => "Please check your Telegram username. It has 5 to 32 letters, numbers or underscores, e.g. @tutor_sg.", empty: "Please add your Telegram username." },
+  rate: { clean: v => v.replace(/\D/g, "").slice(0, 3), ok: v => +v >= 10 && +v <= 500,
+    msg: () => "Please enter a whole number of dollars between 10 and 500, e.g. 40.", empty: "Please add your lowest hourly rate." },
+  year: { clean: v => v.replace(/\D/g, "").slice(0, 4), ok: v => /^(19[6-9]\d|20\d\d)$/.test(v) && +v <= new Date().getFullYear() + 6,
+    msg: () => "Please enter a four-digit year, e.g. 2022.", empty: "Please add the year." },
+  name: { clean: v => v, ok: v => v.trim().length >= 2 && !/\d/.test(v),
+    msg: v => /\d/.test(v) ? "Please use letters only for your name." : "Please add your full name.", empty: "Please add your name." },
+  text: { clean: v => v, ok: v => v.trim().length >= 2, msg: () => "Please add a little more detail.", empty: "Please fill in this field." },
+};
+function fieldMsgBox(el) {
+  const id = el.getAttribute("aria-describedby"); let box = id && document.getElementById(id);
+  if (box && box.classList.contains("fmsg")) return box;
+  box = document.createElement("p"); box.className = "fmsg"; box.id = el.id + "-msg"; box.setAttribute("aria-live", "polite");
+  (el.closest(".tel") || el).after(box);
+  el.setAttribute("aria-describedby", [id, box.id].filter(Boolean).join(" "));
+  return box;
+}
+function checkField(el, onSubmit) {
+  const r = CHECKS[el.dataset.check]; if (!r) return true;
+  const v = el.value.trim(), box = fieldMsgBox(el);
+  const msg = !v ? (onSubmit && el.dataset.required === "true" ? r.empty : "") : (r.ok(v) ? "" : r.msg(v));
+  box.textContent = msg; el.toggleAttribute("aria-invalid", !!msg);
+  return !msg;
+}
+function checkFields(root) { let ok = true; root.querySelectorAll("[data-check]").forEach(el => { if (!checkField(el, true)) ok = false; }); return ok; }
+document.querySelectorAll("form").forEach(f => f.setAttribute("autocomplete", "off"));
+document.querySelectorAll("form input:not([type=checkbox]):not([type=radio]):not([type=file]), form textarea").forEach(el => el.setAttribute("autocomplete", "off"));
+document.querySelectorAll("[data-check]").forEach(el => {
+  const r = CHECKS[el.dataset.check]; if (!r) return;
+  el.addEventListener("input", () => {
+    const c = r.clean(el.value); if (c !== el.value) el.value = c;
+    if (el.hasAttribute("aria-invalid") && r.ok(c.trim())) checkField(el);                       // clear the message once it is fixed
+    else if (el.dataset.check === "mobile" && c && !/^[89]/.test(c)) checkField(el);              // say so straight away
+  });
+  el.addEventListener("blur", () => { if (el.dataset.check === "telegram" && el.value) el.value = "@" + tgHandle(el.value); checkField(el); });
+});
+document.addEventListener("submit", e => checkFields(e.target), true);
 function refCode(prefix) { return prefix + String(Math.floor(1000 + Math.random() * 9000)); }
 
 
@@ -529,7 +579,7 @@ $("request").addEventListener("submit", async e => {
   if (!list.length) { err.textContent = "Please choose at least one activity."; return; }
   if (!$("area").value.trim()) { err.textContent = "Please add the nearest MRT station or postal code."; return; }
   if (!$("name").value.trim()) { err.textContent = "Please add your name."; return; }
-  if (!validMobile($("phone").value)) { err.textContent = "Please enter an 8-digit Singapore mobile number, e.g. 9123 4567."; return; }
+  if (!validMobile($("phone").value)) { err.textContent = "Please enter an 8-digit mobile number starting with 8 or 9, e.g. 91234567."; return; }
   if (!$("consent").checked) { err.textContent = "Please tick the box so we can contact you about this request."; return; }
   const ref = refCode("E");
   const btn = $("submit"); btn.disabled = true; btn.textContent = "Sending…";
