@@ -248,6 +248,12 @@ footer .legal .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;ga
 .part .hint{margin-top:-8px}
 .subgroup{display:grid;gap:8px}
 .subgroup .lbl{font-size:13px;font-weight:700;color:var(--ink-2);text-transform:uppercase;letter-spacing:.05em}
+.enr-more{display:grid;gap:6px;max-width:420px}
+.enr-own{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px}
+.pills{display:flex;flex-wrap:wrap;gap:8px;list-style:none;margin:0;padding:0}
+.pills:empty{display:none}
+.pills button{font:inherit;font-size:14px;display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border:1px solid var(--accent);background:var(--accent-wash);color:var(--accent-strong);border-radius:4px;cursor:pointer}
+.pills button span{font-size:16px;line-height:1}
 .drop{display:grid;gap:4px;justify-items:start;border:1.5px dashed var(--line-strong);background:var(--bg-alt);padding:14px 16px;cursor:pointer;border-radius:4px}
 .drop:hover,.drop.over{border-color:var(--accent);background:var(--accent-wash)}
 .drop:focus-within{outline:3px solid var(--accent);outline-offset:2px}
@@ -348,11 +354,11 @@ footer .legal .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;ga
             <h2><span class="n">2</span>Education</h2>
             <div class="row2">
               <div class="field"><label class="q" for="t-qual">Highest qualification</label>
-                <select id="t-qual"><option value="">Choose</option><option>A-Level, IB or Diploma</option><option>Bachelor's degree (in progress)</option><option>Bachelor's degree</option><option>Master's degree</option><option>PhD</option><option>NIE teaching qualification</option></select></div>
+                <select id="t-qual"><option value="">Choose</option><option>O-Level, N-Level or ITE</option><option>A-Level, IB or Diploma</option><option>Bachelor's degree (in progress)</option><option>Bachelor's degree</option><option>Master's degree</option><option>PhD</option><option>NIE teaching qualification</option><option>Coaching or instructor certificate</option></select></div>
               <div class="field"><label class="q" for="t-year">Year of graduation <span class="muted">(or expected)</span></label><input type="text" id="t-year" inputmode="numeric" maxlength="4" placeholder="e.g. 2022"></div>
             </div>
             <div class="row2">
-              <div class="field"><label class="q" for="t-inst">School or university</label><input type="text" id="t-inst" placeholder="e.g. National University of Singapore"></div>
+              <div class="field"><label class="q" for="t-inst">School, university or certifying body</label><input type="text" id="t-inst" placeholder="e.g. NUS, or SwimSafer"></div>
               <div class="field"><label class="q" for="t-course">Course or major <span class="muted">(optional)</span></label><input type="text" id="t-course" placeholder="e.g. Mathematics"></div>
             </div>
             <p class="err" id="err-2" role="alert"></p>
@@ -366,12 +372,55 @@ footer .legal .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;ga
                 <button type="button" class="chip" aria-pressed="false" data-value="Primary">Primary</button>
                 <button type="button" class="chip" aria-pressed="false" data-value="Secondary">Secondary</button>
                 <button type="button" class="chip" aria-pressed="false" data-value="JC">Junior College</button>
+                <button type="button" class="chip" aria-pressed="false" data-value="Enrichment">Enrichment and sports</button>
               </div>
             </div>
             <div class="field" id="f-subj" hidden>
               <div class="q">Subjects</div>
               <div class="hint">Choose all that you can teach.</div>
               <div id="subj-groups" style="display:grid;gap:14px"></div>
+            </div>
+            <div class="field" id="f-enr" hidden>
+              <div class="q" id="q-enr">Activities you teach or coach</div>
+              <div class="hint">Choose all that apply. For anything else, use Other activity.</div>
+              <div class="chips" role="group" aria-labelledby="q-enr" id="enr-chips" data-multi="true">
+                <button type="button" class="chip" aria-pressed="false" data-value="Swimming">Swimming</button>
+                <button type="button" class="chip" aria-pressed="false" data-value="Pickleball">Pickleball</button>
+                <button type="button" class="chip" aria-pressed="false" data-value="Badminton">Badminton</button>
+                <button type="button" class="chip" aria-pressed="false" data-value="Tennis">Tennis</button>
+                <button type="button" class="chip" aria-pressed="false" data-value="Football">Football</button>
+                <button type="button" class="chip" aria-pressed="false" data-value="Basketball">Basketball</button>
+                <button type="button" class="chip" aria-pressed="false" data-value="Table tennis">Table tennis</button>
+                <button type="button" class="chip" aria-pressed="false" data-value="Taekwondo">Taekwondo</button>
+                <button type="button" class="chip" aria-pressed="false" aria-expanded="false" aria-controls="enr-more" id="enr-other-btn" data-other="1">Other activity</button>
+              </div>
+              <div class="enr-more" id="enr-more" hidden>
+                <label class="q" for="t-enr-other" style="font-size:14px">Choose an activity</label>
+                <select id="t-enr-other">
+                  <option value="">Choose</option>
+                  <optgroup label="Sports">
+                    <option>Archery</option><option>Athletics and running</option><option>Climbing</option><option>Cycling</option><option>Fencing</option><option>Floorball</option><option>Golf</option><option>Gymnastics</option><option>Hockey</option><option>Ice skating</option><option>Judo</option><option>Karate</option><option>Netball</option><option>Rugby</option><option>Sailing</option><option>Squash</option><option>Volleyball</option><option>Wushu</option>
+                  </optgroup>
+                  <optgroup label="Music">
+                    <option>Piano</option><option>Guitar</option><option>Violin</option><option>Drums</option><option>Singing</option><option>Ukulele</option><option>Guzheng</option><option>Erhu</option>
+                  </optgroup>
+                  <optgroup label="Dance">
+                    <option>Ballet</option><option>Hip hop dance</option><option>Contemporary dance</option><option>Chinese dance</option><option>K-pop dance</option>
+                  </optgroup>
+                  <optgroup label="Thinking skills">
+                    <option>Abacus and mental arithmetic</option><option>Chess</option><option>Coding</option><option>Robotics</option>
+                  </optgroup>
+                  <optgroup label="Art and speech">
+                    <option>Drawing and painting</option><option>Art and craft</option><option>Speech and drama</option><option>Public speaking</option><option>Creative writing</option><option>Photography</option>
+                  </optgroup>
+                  <option value="__other">Something else (type it)</option>
+                </select>
+                <div class="enr-own" id="enr-own" hidden>
+                  <input type="text" id="t-enr-own" maxlength="40" placeholder="e.g. Lion dance">
+                  <button type="button" class="btn outline small" id="enr-add">Add</button>
+                </div>
+              </div>
+              <ul class="pills" id="enr-picked" aria-label="Other activities added"></ul>
             </div>
             <div class="field">
               <div class="q" id="q-areas">Where can you teach?</div>
@@ -591,13 +640,52 @@ const LIMITS = { cv: 1, certs: 5, others: 3 };
 const TYPES = { cv: /\.(pdf|docx?)$/i, certs: /\.(pdf|jpe?g|png)$/i, others: /\.(pdf|jpe?g|png)$/i };
 const MAX_FILE = 5 * 1024 * 1024, MAX_TOTAL = 20 * 1024 * 1024;
 const S = { tutor_type: "", gender: "Prefer not to say", levels: [], areas: [] };
+const ENR = new Set();                       // enrichment activities chosen
+const ACADEMIC = ["Primary", "Secondary", "JC"];
 const picked = new Set();
 const FILES = { cv: [], certs: [], others: [] };
 let started = false;
 const start = () => { if (!started) { started = true; track("tutor_form_start"); } };
 $("tform").addEventListener("input", start); $("tform").addEventListener("click", start);
 
-document.querySelectorAll("#tform .chips[data-name]").forEach(g => bindChips(g, S, name => { if (name === "levels") drawSubjects(); }));
+document.querySelectorAll("#tform .chips[data-name]").forEach(g => bindChips(g, S, name => { if (name === "levels") { drawSubjects(); $("f-enr").hidden = !S.levels.includes("Enrichment"); } }));
+
+// Enrichment: common sports as buttons, everything else from the Other activity list.
+const COMMON = [...document.querySelectorAll("#enr-chips .chip:not([data-other])")].map(b => b.dataset.value);
+function drawEnrichment() {
+  document.querySelectorAll("#enr-chips .chip:not([data-other])").forEach(b => b.setAttribute("aria-pressed", ENR.has(b.dataset.value)));
+  const ul = $("enr-picked"); ul.innerHTML = "";
+  [...ENR].filter(v => !COMMON.includes(v)).forEach(v => {
+    const li = document.createElement("li"); const b = document.createElement("button"); b.type = "button";
+    b.setAttribute("aria-label", "Remove " + v); b.innerHTML = '<span aria-hidden="true">×</span>'; b.prepend(document.createTextNode(v));
+    b.addEventListener("click", () => { ENR.delete(v); drawEnrichment(); });
+    li.appendChild(b); ul.appendChild(li);
+  });
+}
+$("enr-chips").addEventListener("click", e => {
+  const b = e.target.closest(".chip"); if (!b) return;
+  if (b.dataset.other) {
+    const open = $("enr-more").hidden; $("enr-more").hidden = !open; b.setAttribute("aria-expanded", open); b.setAttribute("aria-pressed", open);
+    if (open) $("t-enr-other").focus();
+    return;
+  }
+  ENR.has(b.dataset.value) ? ENR.delete(b.dataset.value) : ENR.add(b.dataset.value);
+  drawEnrichment();
+});
+function addOwn(v) {
+  v = v.replace(/\s+/g, " ").trim().slice(0, 40);
+  if (v.length < 2) return;
+  if (ENR.size >= 12) { $("err-3").textContent = "Please choose up to 12 activities."; return; }
+  ENR.add(v); drawEnrichment();
+}
+$("t-enr-other").addEventListener("change", e => {
+  const v = e.target.value;
+  $("enr-own").hidden = v !== "__other";
+  if (v && v !== "__other") { addOwn(v); e.target.value = ""; }
+  if (v === "__other") $("t-enr-own").focus();
+});
+$("enr-add").addEventListener("click", () => { addOwn($("t-enr-own").value); $("t-enr-own").value = ""; });
+$("t-enr-own").addEventListener("keydown", e => { if (e.key === "Enter") { e.preventDefault(); $("enr-add").click(); } });
 
 function drawSubjects() {
   const box = $("subj-groups"); box.innerHTML = "";
@@ -668,9 +756,11 @@ function check() {
   need(!!v("t-qual"), 2, "Please choose your highest qualification.");
   need(v("t-inst").length >= 2, 2, "Please add the school or university for that qualification.");
   need(!v("t-year") || /^(19[6-9]\d|20\d\d)$/.test(v("t-year")), 2, "Please check the year of graduation.");
-  need(S.levels.length > 0, 3, "Please choose at least one level.");
-  const subjects = [...picked].filter(s => S.levels.some(l => SUBJECTS[l].includes(s)));
-  need(subjects.length > 0, 3, "Please choose at least one subject.");
+  need(S.levels.length > 0, 3, "Please choose at least one level, or Enrichment and sports.");
+  const academic = S.levels.filter(l => ACADEMIC.includes(l));
+  const subjects = [...picked].filter(s => academic.some(l => SUBJECTS[l].includes(s)));
+  need(!academic.length || subjects.length > 0, 3, "Please choose at least one subject.");
+  need(!S.levels.includes("Enrichment") || ENR.size > 0, 3, "Please choose at least one activity you teach or coach.");
   need(S.areas.length > 0, 3, "Please choose where you can teach.");
   need(!v("t-rate") || (/^\d{2,3}$/.test(v("t-rate")) && +v("t-rate") >= 10), 3, "Please enter your lowest hourly rate in dollars, e.g. 40.");
   need(FILES.cv.length === 1, 4, "Please attach your CV.");
@@ -704,7 +794,7 @@ $("tform").addEventListener("submit", async e => {
   const subjects = check(); if (!subjects) return;
   const btn = $("t-submit"), bar = $("t-bar"), fill = bar.querySelector("i");
   btn.disabled = true; btn.textContent = "Uploading…"; bar.hidden = false; fill.style.width = "4%";
-  track("tutor_form_submit", { levels: S.levels.join(", "), subjects: subjects.length, files: Object.values(FILES).flat().length });
+  track("tutor_form_submit", { levels: S.levels.join(", "), subjects: subjects.length, activities: ENR.size, files: Object.values(FILES).flat().length });
   const done = (ref, link, preview) => {
     $("tf-body").hidden = true; $("tf-done").hidden = false;
     $("t-ref").textContent = ref; $("t-tglink").href = link; $("t-preview").hidden = !preview;
@@ -718,7 +808,8 @@ $("tform").addEventListener("submit", async e => {
    ["gender", S.gender], ["qualification", v("t-qual")], ["institution", v("t-inst")], ["course", v("t-course")], ["grad_year", v("t-year")],
    ["experience", v("t-exp")], ["min_rate", v("t-rate")], ["intro", v("t-intro")], ["consent", "yes"], ["website", v("t-website")]]
     .forEach(([k, val]) => fd.append(k, val));
-  S.levels.forEach(x => fd.append("levels", x)); subjects.forEach(x => fd.append("subjects", x)); S.areas.forEach(x => fd.append("areas", x));
+  S.levels.forEach(x => fd.append("levels", x)); subjects.forEach(x => fd.append("subjects", x));
+  if (S.levels.includes("Enrichment")) ENR.forEach(x => fd.append("enrichment", x)); S.areas.forEach(x => fd.append("areas", x));
   FILES.cv.forEach(f => fd.append("cv", f)); FILES.certs.forEach(f => fd.append("certs", f)); FILES.others.forEach(f => fd.append("others", f));
   try {
     const r = await send(fd, p => fill.style.width = Math.max(4, Math.round(p * 92)) + "%");
