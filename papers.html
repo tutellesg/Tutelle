@@ -153,7 +153,7 @@ section.tint{background:var(--bg-alt)}
 .row3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
 @media (max-width:640px){.row3{grid-template-columns:1fr 1fr}}
 @media (max-width:480px){.row2,.row3{grid-template-columns:minmax(0,1fr)}}
-input[type=text],input[type=tel],select,textarea{width:100%;font:16px/1.4 var(--f);color:var(--ink);background:var(--bg);border:1px solid var(--line-strong);border-radius:4px;padding:10px 12px}
+input[type=text],input[type=tel],input[type=email],select,textarea{width:100%;font:16px/1.4 var(--f);color:var(--ink);background:var(--bg);border:1px solid var(--line-strong);border-radius:4px;padding:10px 12px}
 textarea{min-height:76px;resize:vertical}
 input:focus,select:focus,textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 22%,transparent)}
 .tel{display:flex}
@@ -234,12 +234,18 @@ footer .legal .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;ga
 :root[data-mode="dark"] .btn.outline{background:transparent;color:#FFFFFF;border-color:#FFFFFF}
 :root[data-mode="dark"] .btn.outline:hover{background:var(--accent-wash)}
 
+.notice-r{display:flex;align-items:center;gap:14px;flex-shrink:0}
+.notice-link{font-size:13.5px;font-weight:600;color:inherit;white-space:nowrap}
+@media (max-width:640px){.notice-link{display:none}}
+
 .papers{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,360px);gap:clamp(24px,4vw,48px);align-items:start}
 @media (max-width:980px){.papers{grid-template-columns:minmax(0,1fr)}}
 .filters{border:1px solid var(--line-strong);background:var(--bg-alt);padding:16px;display:grid;gap:12px;margin-bottom:16px}
 .filters .row{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
 @media (max-width:640px){.filters .row{grid-template-columns:1fr 1fr}}
-.filters .row.one{grid-template-columns:minmax(0,1fr)}
+.filters .row.two{grid-template-columns:minmax(0,1fr) minmax(0,2fr)}
+@media (max-width:640px){.filters .row.two{grid-template-columns:minmax(0,1fr)}}
+.lvl-g{display:block;font-size:13px;color:var(--ink-2)}
 .filters label{font-size:13.5px;font-weight:600;display:grid;gap:6px}
 .count{display:flex;justify-content:space-between;align-items:center;gap:12px;font-size:14px;color:var(--ink-2);margin-bottom:10px}
 .lock{display:inline-flex;align-items:center;gap:6px}
@@ -278,7 +284,7 @@ footer .legal .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;ga
 .access li svg{margin-top:5px}
 </style>
 </head><body>
-<div class="notice"><div class="wrap"><span><b>For parents:</b> tutor requests are free, and shortlists are usually sent within one working day.</span><button type="button" class="mode-btn js-mode" aria-pressed="false"><svg width="13" height="13" viewBox="0 0 16 16" aria-hidden="true"><path d="M13.5 10.2A6 6 0 015.8 2.5a6 6 0 107.7 7.7z" fill="none" stroke="currentColor" stroke-width="1.5"/></svg><span class="js-mode-label">Dark mode</span></button></div></div>
+<div class="notice"><div class="wrap"><span><b>For parents:</b> tutor requests are free, and shortlists are usually sent within one working day.</span><span class="notice-r"><a class="notice-link" href="tutors.html">Tutors: register here</a><button type="button" class="mode-btn js-mode" aria-pressed="false"><svg width="13" height="13" viewBox="0 0 16 16" aria-hidden="true"><path d="M13.5 10.2A6 6 0 015.8 2.5a6 6 0 107.7 7.7z" fill="none" stroke="currentColor" stroke-width="1.5"/></svg><span class="js-mode-label">Dark mode</span></button></span></div></div>
 <header class="top">
   <div class="wrap">
     <a class="crest" href="index.html" aria-label="Tutelle home">
@@ -294,6 +300,7 @@ footer .legal .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;ga
       <a class="text" href="practice.html">Practice questions</a>
       <a class="text" href="papers.html" aria-current="page">Past year papers</a>
       <a class="text" href="enrichment.html">Enrichment</a>
+      <a class="text" href="exam-dates.html">Exam dates</a>
       <a class="btn small" href="index.html#request">Request a tutor</a>
     </nav>
   </div>
@@ -318,7 +325,8 @@ footer .legal .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;ga
             <label>Type<select id="f-type"><option value="">All types</option></select></label>
             <label>Year<select id="f-year"><option value="">All years</option></select></label>
           </div>
-          <div class="row one">
+          <div class="row two">
+            <label>Course<select id="f-course"><option value="">All courses</option><option value="G3">G3 (formerly Express)</option><option value="G2">G2 (formerly N(A))</option><option value="G1">G1 (formerly N(T))</option></select></label>
             <label>School<select id="f-school"><option value="">All schools</option></select></label>
           </div>
         </div>
@@ -332,7 +340,7 @@ footer .legal .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;ga
           </table>
         </div>
         <nav class="pager" id="pager" aria-label="Pages of papers" hidden><span id="pager-info"></span><div class="pages" id="pager-pages"></div></nav>
-        <p class="cap">Papers are for your family's own revision. Please do not share them.</p>
+        <p class="cap">Papers are for your family's own revision. Please do not share them. <a href="past-papers.html">Browse all papers by school or subject</a>.</p>
       </div>
 
       <form class="card access" id="access" novalidate aria-labelledby="acc-title">
@@ -380,8 +388,8 @@ footer .legal .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;ga
 <footer>
   <div class="wrap cols">
     <div style="display:grid;gap:6px;align-content:start"><span class="fname">Tutelle</span><span>Home Tuition Agency, Singapore</span></div>
-    <div><h4>Services</h4><div class="list"><a href="index.html">Home tuition</a><a href="practice.html">Practice questions</a><a href="papers.html">Past year papers</a><a href="enrichment.html">Enrichment classes</a></div></div>
-    <div><h4>Tutors</h4><div class="list"><a href="index.html#tutors">Teach with Tutelle</a><a href="https://t.me/TutelleSG" target="_blank" rel="noopener">Telegram: @TutelleSG</a></div></div>
+    <div><h4>Services</h4><div class="list"><a href="index.html">Home tuition</a><a href="practice.html">Practice questions</a><a href="papers.html">Past year papers</a><a href="past-papers.html">Papers by school</a><a href="enrichment.html">Enrichment classes</a><a href="exam-dates.html">Exam dates</a></div></div>
+    <div><h4>Tutors</h4><div class="list"><a href="tutors.html">Become a tutor</a><a href="https://t.me/TutelleSG" target="_blank" rel="noopener">Telegram: @TutelleSG</a></div></div>
     <div><h4>Contact</h4><div class="list"><span class="js-email"></span></div></div>
   </div>
   <div class="legal"><div class="wrap"><span class="js-legal">© Tutelle</span><span>Terms of use · Privacy policy</span></div></div>
@@ -531,6 +539,17 @@ function setupFilters() {
   fill($("f-type"), ["Exam papers", "Worksheets", "Quizzes"].filter(c => PAPERS.some(p => p.category === c)));
 }
 
+// Full Subject-Based Banding: from the 2024 Sec 1 cohort, subjects are taken at G1, G2 or G3,
+// mapped from the former N(T), N(A) and Express standards. Older papers are labelled with the matching G level.
+function courseOf(p) {
+  if (!/^Sec /.test(p.level)) return "";
+  const g = p.exam.match(/\bG([123])\b/); if (g) return "G" + g[1];
+  if (/N\(T\)/.test(p.exam)) return "G1";
+  if (/N\(A\)/.test(p.exam)) return "G2";
+  return "G3";
+}
+const cleanTitle = t => t.replace(/\s*(?:\bN\([AT]\)|\bG[123]\b)\s*/g, " ").replace(/\s+/g, " ").trim() || t;
+
 const PER_PAGE = 12;
 let page = 1;
 
@@ -564,7 +583,7 @@ function renderPager(total) {
 }
 
 function render() {
-  const f = { level: $("f-level").value, subject: $("f-subject").value, year: $("f-year").value, category: $("f-type").value };
+  const f = { level: $("f-level").value, subject: $("f-subject").value, year: $("f-year").value, category: $("f-type").value, course: $("f-course").value };
   const onlyAns = $("f-ans").checked;
   const base = PAPERS.filter(p => Object.entries(f).every(([k, v]) => !v || String(p[k]) === v) && (!onlyAns || p.has_answers === true));
   // School list follows the other filters, so parents only see schools that have matching papers.
@@ -587,19 +606,33 @@ function render() {
     const tr = document.createElement("tr");
     const th = document.createElement("th"); th.scope = "row";
     const el = (cls, text) => { const e = document.createElement("span"); e.className = cls; e.textContent = text; return e; };
-    th.appendChild(el("title", p.exam));
+    th.appendChild(el("title", p.title));
     th.appendChild(el("school", p.school));
-    th.appendChild(el("meta", `${p.level} · ${p.subject} · ${p.year}`));
+    th.appendChild(el("meta", `${p.level}${p.course ? " " + p.course : ""} · ${p.subject} · ${p.year}`));
     if (p.has_answers != null) th.appendChild(el("ans" + (p.has_answers ? " yes" : ""), p.has_answers ? "With answers" : "Paper only"));
     tr.appendChild(th);
-    [p.subject, p.level, p.year].forEach(v => { const td = document.createElement("td"); td.className = "c-hide"; td.textContent = v; tr.appendChild(td); });
+    [p.subject, p.level, p.year].forEach((v, i) => {
+      const td = document.createElement("td"); td.className = "c-hide"; td.textContent = v;
+      if (i === 1 && p.course) { const g = el("lvl-g", p.course); g.title = { G1: "Formerly N(T)", G2: "Formerly N(A)", G3: "Formerly Express" }[p.course]; td.appendChild(g); }
+      tr.appendChild(td);
+    });
     const td = document.createElement("td"); td.className = "act";
     const b = document.createElement("button"); b.type = "button"; b.className = "btn outline small"; b.dataset.id = p.id;
     b.innerHTML = pass ? "View" : '<span class="lock"><svg width="12" height="12" viewBox="0 0 16 16" aria-hidden="true"><rect x="3" y="7" width="10" height="7" rx="1" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M5.5 7V5a2.5 2.5 0 015 0v2" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>View</span>';
-    b.setAttribute("aria-label", `View ${p.year} ${p.level} ${p.subject} ${p.exam}, ${p.school}${p.has_answers ? ", with answers" : p.has_answers === false ? ", paper only" : ""}`);
+    b.setAttribute("aria-label", `View ${p.year} ${p.level}${p.course ? " " + p.course : ""} ${p.subject} ${p.title}, ${p.school}${p.has_answers ? ", with answers" : p.has_answers === false ? ", paper only" : ""}`);
     td.appendChild(b); tr.appendChild(td); body.appendChild(tr);
   });
   $("count").textContent = `${list.length} ${list.length === 1 ? "paper" : "papers"}`;
+}
+
+// Links from the browse pages arrive as papers.html?level=P6&subject=Mathematics&school=...
+function applyUrlFilters() {
+  const q = new URLSearchParams(location.search);
+  const set = (id, v) => { const sel = $(id); if (v && [...sel.options].some(o => o.value === v)) sel.value = v; };
+  set("f-level", q.get("level")); set("f-subject", q.get("subject")); set("f-type", q.get("type"));
+  set("f-year", q.get("year")); set("f-course", q.get("course"));
+  const sch = q.get("school");
+  if (sch) { const sel = $("f-school"); fill(sel, [sch]); sel.value = sch; }
 }
 
 function showAccess() {
@@ -616,7 +649,8 @@ async function load() {
     try { PAPERS = await dbGet("papers?select=id,level,level_group,subject,year,exam,school,has_answers,category&active=eq.true&order=year.desc&limit=5000"); }
     catch (_) { PAPERS = []; $("view-msg").textContent = `The paper list could not be loaded. Please refresh the page, or email ${CONFIG.email}.`; }
   }
-  setupFilters(); render(); showAccess();
+  PAPERS.forEach(p => { p.course = courseOf(p); p.title = cleanTitle(p.exam); });
+  setupFilters(); applyUrlFilters(); render(); showAccess();
 }
 
 async function openPaper(id, win) {
@@ -666,10 +700,10 @@ $("pager-pages").addEventListener("click", e => {
   track("paper_page", { page });
 });
 
-["f-level", "f-subject", "f-year", "f-type", "f-school", "f-ans"].forEach(id => $(id).addEventListener("change", () => {
+["f-level", "f-subject", "f-year", "f-type", "f-course", "f-school", "f-ans"].forEach(id => $(id).addEventListener("change", () => {
   page = 1;
   render();
-  track("paper_filter", { level: $("f-level").value, subject: $("f-subject").value, year: $("f-year").value, type: $("f-type").value, school: $("f-school").value, answers_only: $("f-ans").checked });
+  track("paper_filter", { level: $("f-level").value, subject: $("f-subject").value, year: $("f-year").value, type: $("f-type").value, course: $("f-course").value, school: $("f-school").value, answers_only: $("f-ans").checked });
 }));
 
 $("access").addEventListener("submit", async e => {

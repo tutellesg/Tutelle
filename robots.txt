@@ -1,0 +1,3 @@
+User-agent: *
+Disallow: /tools/
+Sitemap: https://tutellesg.github.io/Tutelle/sitemap.xml

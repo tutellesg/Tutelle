@@ -153,7 +153,7 @@ section.tint{background:var(--bg-alt)}
 .row3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
 @media (max-width:640px){.row3{grid-template-columns:1fr 1fr}}
 @media (max-width:480px){.row2,.row3{grid-template-columns:minmax(0,1fr)}}
-input[type=text],input[type=tel],select,textarea{width:100%;font:16px/1.4 var(--f);color:var(--ink);background:var(--bg);border:1px solid var(--line-strong);border-radius:4px;padding:10px 12px}
+input[type=text],input[type=tel],input[type=email],select,textarea{width:100%;font:16px/1.4 var(--f);color:var(--ink);background:var(--bg);border:1px solid var(--line-strong);border-radius:4px;padding:10px 12px}
 textarea{min-height:76px;resize:vertical}
 input:focus,select:focus,textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 22%,transparent)}
 .tel{display:flex}
@@ -234,6 +234,10 @@ footer .legal .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;ga
 :root[data-mode="dark"] .btn.outline{background:transparent;color:#FFFFFF;border-color:#FFFFFF}
 :root[data-mode="dark"] .btn.outline:hover{background:var(--accent-wash)}
 
+.notice-r{display:flex;align-items:center;gap:14px;flex-shrink:0}
+.notice-link{font-size:13.5px;font-weight:600;color:inherit;white-space:nowrap}
+@media (max-width:640px){.notice-link{display:none}}
+
 .enrich{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,400px);gap:clamp(24px,4vw,48px);align-items:start}
 @media (max-width:980px){.enrich{grid-template-columns:minmax(0,1fr)}}
 .cats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
@@ -246,7 +250,7 @@ footer .legal .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;ga
 .req{position:sticky;top:16px}
 </style>
 </head><body>
-<div class="notice"><div class="wrap"><span><b>For parents:</b> tutor requests are free, and shortlists are usually sent within one working day.</span><button type="button" class="mode-btn js-mode" aria-pressed="false"><svg width="13" height="13" viewBox="0 0 16 16" aria-hidden="true"><path d="M13.5 10.2A6 6 0 015.8 2.5a6 6 0 107.7 7.7z" fill="none" stroke="currentColor" stroke-width="1.5"/></svg><span class="js-mode-label">Dark mode</span></button></div></div>
+<div class="notice"><div class="wrap"><span><b>For parents:</b> tutor requests are free, and shortlists are usually sent within one working day.</span><span class="notice-r"><a class="notice-link" href="tutors.html">Tutors: register here</a><button type="button" class="mode-btn js-mode" aria-pressed="false"><svg width="13" height="13" viewBox="0 0 16 16" aria-hidden="true"><path d="M13.5 10.2A6 6 0 015.8 2.5a6 6 0 107.7 7.7z" fill="none" stroke="currentColor" stroke-width="1.5"/></svg><span class="js-mode-label">Dark mode</span></button></span></div></div>
 <header class="top">
   <div class="wrap">
     <a class="crest" href="index.html" aria-label="Tutelle home">
@@ -262,6 +266,7 @@ footer .legal .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;ga
       <a class="text" href="practice.html">Practice questions</a>
       <a class="text" href="papers.html">Past year papers</a>
       <a class="text" href="enrichment.html" aria-current="page">Enrichment</a>
+      <a class="text" href="exam-dates.html">Exam dates</a>
       <a class="btn small" href="index.html#request">Request a tutor</a>
     </nav>
   </div>
@@ -375,8 +380,8 @@ footer .legal .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;ga
 <footer>
   <div class="wrap cols">
     <div style="display:grid;gap:6px;align-content:start"><span class="fname">Tutelle</span><span>Home Tuition Agency, Singapore</span></div>
-    <div><h4>Services</h4><div class="list"><a href="index.html">Home tuition</a><a href="practice.html">Practice questions</a><a href="papers.html">Past year papers</a><a href="enrichment.html">Enrichment classes</a></div></div>
-    <div><h4>Tutors</h4><div class="list"><a href="index.html#tutors">Teach with Tutelle</a><a href="https://t.me/TutelleSG" target="_blank" rel="noopener">Telegram: @TutelleSG</a></div></div>
+    <div><h4>Services</h4><div class="list"><a href="index.html">Home tuition</a><a href="practice.html">Practice questions</a><a href="papers.html">Past year papers</a><a href="past-papers.html">Papers by school</a><a href="enrichment.html">Enrichment classes</a><a href="exam-dates.html">Exam dates</a></div></div>
+    <div><h4>Tutors</h4><div class="list"><a href="tutors.html">Become a tutor</a><a href="https://t.me/TutelleSG" target="_blank" rel="noopener">Telegram: @TutelleSG</a></div></div>
     <div><h4>Contact</h4><div class="list"><span class="js-email"></span></div></div>
   </div>
   <div class="legal"><div class="wrap"><span class="js-legal">© Tutelle</span><span>Terms of use · Privacy policy</span></div></div>
