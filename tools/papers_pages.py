@@ -114,6 +114,13 @@ def jsonld(name, desc, url, crumbs, items):
     return json.dumps(data, ensure_ascii=False).replace("</", "<\\/")
 
 
+# Clean addresses: GitHub Pages serves papers.html at /papers, so links leave out ".html" and the home page is "./".
+OWN = r"(?:index|practice|papers|enrichment|tutors|exam-dates|shortlist|past-papers[a-z0-9-]*)"
+def clean_urls(html):
+    html = re.sub(r"""(["'`(/])index\.html(?=[#?"'`)])""", lambda m: m.group(1) + ("" if m.group(1) == "/" else "./"), html)
+    return re.sub(r"\b(" + OWN + r")\.html\b(?![-\w])", r"\1", html)
+
+
 def page(tpl, *, file, title, desc, h1, lede, crumbs, content, side, open_link, items, fact_html=""):
     url = f"{SITE}/{file}"
     crumb_html = " › ".join(f'<a href="{e(h)}">{e(n)}</a>' for n, h in crumbs[:-1]) + f" › {e(crumbs[-1][0])}"
@@ -122,7 +129,7 @@ def page(tpl, *, file, title, desc, h1, lede, crumbs, content, side, open_link, 
                  "{{CRUMBS}}": crumb_html, "{{H1}}": e(h1), "{{LEDE}}": e(lede), "{{FACTS}}": fact_html,
                  "{{CONTENT}}": content, "{{SIDE}}": side, "{{OPEN_URL}}": e(open_link)}.items():
         out = out.replace(k, v)
-    open(os.path.join(ROOT, file), "w").write(out)
+    open(os.path.join(ROOT, file), "w").write(clean_urls(out))
     return file
 
 
@@ -231,7 +238,7 @@ def main():
     today = datetime.date.today().isoformat()
     urls = [p for p in STATIC_PAGES if os.path.exists(os.path.join(ROOT, p))] + sorted(keep)
     sm = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
-    sm += [f"  <url><loc>{e(SITE + '/' + (u if u != 'index.html' else ''))}</loc><lastmod>{today}</lastmod></url>" for u in urls]
+    sm += [f"  <url><loc>{e(SITE + '/' + (u[:-5] if u != 'index.html' else ''))}</loc><lastmod>{today}</lastmod></url>" for u in urls]
     sm.append("</urlset>")
     open(os.path.join(ROOT, "sitemap.xml"), "w").write("\n".join(sm) + "\n")
     open(os.path.join(ROOT, "robots.txt"), "w").write(f"User-agent: *\nDisallow: /tools/\nSitemap: {SITE}/sitemap.xml\n")
