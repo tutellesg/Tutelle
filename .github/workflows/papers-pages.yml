@@ -1,0 +1,25 @@
+# Rebuilds the past-paper browse pages from the live paper list, every night and on demand.
+# Place this file in the website repository at .github/workflows/papers-pages.yml
+name: Update past paper pages
+
+on:
+  schedule:
+    - cron: "0 19 * * *"   # 3am Singapore time
+  workflow_dispatch:        # Actions tab > Update past paper pages > Run workflow
+
+permissions:
+  contents: write
+
+jobs:
+  pages:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Write the browse pages
+        run: python3 tools/papers_pages.py --live
+      - name: Save any changes
+        run: |
+          git config user.name "Tutelle pages"
+          git config user.email "pages@users.noreply.github.com"
+          git add -A -- 'past-papers*.html' sitemap.xml robots.txt
+          if git diff --cached --quiet; then echo "No changes"; else git commit -m "Update past paper pages" && git push; fi
