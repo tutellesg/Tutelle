@@ -251,12 +251,16 @@ footer .legal .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;ga
 .part .hint{margin-top:-8px}
 .subgroup{display:grid;gap:8px}
 .subgroup .lbl{font-size:13px;font-weight:700;color:var(--ink-2);text-transform:uppercase;letter-spacing:.05em}
-.enr-more{display:grid;gap:6px;max-width:420px}
-.enr-own{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px}
-.pills{display:flex;flex-wrap:wrap;gap:8px;list-style:none;margin:0;padding:0}
-.pills:empty{display:none}
-.pills button{font:inherit;font-size:14px;display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border:1px solid var(--accent);background:var(--accent-wash);color:var(--accent-strong);border-radius:4px;cursor:pointer}
-.pills button span{font-size:16px;line-height:1}
+.kinds{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+@media (max-width:560px){.kinds{grid-template-columns:minmax(0,1fr)}}
+.kind{font:inherit;text-align:left;display:grid;gap:3px;align-content:start;padding:14px 16px 14px 44px;position:relative;border:1px solid var(--line-strong);background:var(--bg);color:var(--ink);border-radius:4px;cursor:pointer}
+.kind::before{content:"";position:absolute;left:16px;top:16px;width:16px;height:16px;border:1.5px solid var(--line-strong);border-radius:3px;background:var(--bg)}
+.kind[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-wash);box-shadow:inset 0 0 0 1px var(--accent)}
+.kind[aria-pressed="true"]::before{background:var(--accent);border-color:var(--accent)}
+.kind[aria-pressed="true"]::after{content:"";position:absolute;left:21.5px;top:18.5px;width:5px;height:9px;border:solid var(--on-accent);border-width:0 2px 2px 0;transform:rotate(45deg)}
+.kind b{font-size:16px}
+.kind span{font-size:13.5px;color:var(--ink-2)}
+.kind:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
 .drop{display:grid;gap:4px;justify-items:start;border:1.5px dashed var(--line-strong);background:var(--bg-alt);padding:14px 16px;cursor:pointer;border-radius:4px}
 .drop:hover,.drop.over{border-color:var(--accent);background:var(--accent-wash)}
 .drop:focus-within{outline:3px solid var(--accent);outline-offset:2px}
@@ -370,12 +374,19 @@ footer .legal .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;ga
           <fieldset class="part" id="p3">
             <h2><span class="n">3</span>What you teach</h2>
             <div class="field">
+              <div class="q" id="q-kind">What do you teach?</div>
+              <div class="hint">Choose one or both.</div>
+              <div class="kinds" role="group" aria-labelledby="q-kind" id="kind-chips">
+                <button type="button" class="kind" aria-pressed="false" data-kind="school"><b>School subjects</b><span>Primary, Secondary and JC</span></button>
+                <button type="button" class="kind" aria-pressed="false" data-kind="enr"><b>Enrichment and sports</b><span>Sports, music, dance, coding and gaming, art and more</span></button>
+              </div>
+            </div>
+            <div class="field" id="f-levels" hidden>
               <div class="q" id="q-levels">Levels</div>
               <div class="chips" role="group" aria-labelledby="q-levels" data-name="levels" data-multi="true">
                 <button type="button" class="chip" aria-pressed="false" data-value="Primary">Primary</button>
                 <button type="button" class="chip" aria-pressed="false" data-value="Secondary">Secondary</button>
                 <button type="button" class="chip" aria-pressed="false" data-value="JC">Junior College</button>
-                <button type="button" class="chip" aria-pressed="false" data-value="Enrichment">Enrichment and sports</button>
               </div>
             </div>
             <div class="field" id="f-subj" hidden>
@@ -384,46 +395,14 @@ footer .legal .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;ga
               <div id="subj-groups" style="display:grid;gap:14px"></div>
             </div>
             <div class="field" id="f-enr" hidden>
-              <div class="q" id="q-enr">Activities you teach or coach</div>
-              <div class="hint">Choose all that apply. For anything else, use Other activity.</div>
-              <div class="chips" role="group" aria-labelledby="q-enr" id="enr-chips" data-multi="true">
-                <button type="button" class="chip" aria-pressed="false" data-value="Swimming">Swimming</button>
-                <button type="button" class="chip" aria-pressed="false" data-value="Pickleball">Pickleball</button>
-                <button type="button" class="chip" aria-pressed="false" data-value="Badminton">Badminton</button>
-                <button type="button" class="chip" aria-pressed="false" data-value="Tennis">Tennis</button>
-                <button type="button" class="chip" aria-pressed="false" data-value="Football">Football</button>
-                <button type="button" class="chip" aria-pressed="false" data-value="Basketball">Basketball</button>
-                <button type="button" class="chip" aria-pressed="false" data-value="Table tennis">Table tennis</button>
-                <button type="button" class="chip" aria-pressed="false" data-value="Taekwondo">Taekwondo</button>
-                <button type="button" class="chip" aria-pressed="false" aria-expanded="false" aria-controls="enr-more" id="enr-other-btn" data-other="1">Other activity</button>
+              <div class="q">Activities you teach or coach</div>
+              <div class="hint">Choose all that apply, up to 12.</div>
+              <div id="enr-groups" style="display:grid;gap:14px"></div>
+              <div class="field" style="margin-top:4px">
+                <label class="q" for="t-enr-own" style="font-size:14.5px">Something not listed? <span class="muted">(optional)</span></label>
+                <input type="text" id="t-enr-own" maxlength="160" placeholder="e.g. Lion dance, Mandarin speech">
+                <div class="hint">Separate activities with commas.</div>
               </div>
-              <div class="enr-more" id="enr-more" hidden>
-                <label class="q" for="t-enr-other" style="font-size:14px">Choose an activity</label>
-                <select id="t-enr-other">
-                  <option value="">Choose</option>
-                  <optgroup label="Sports">
-                    <option>Archery</option><option>Athletics and running</option><option>Climbing</option><option>Cycling</option><option>Fencing</option><option>Floorball</option><option>Golf</option><option>Gymnastics</option><option>Hockey</option><option>Ice skating</option><option>Judo</option><option>Karate</option><option>Netball</option><option>Rugby</option><option>Sailing</option><option>Squash</option><option>Volleyball</option><option>Wushu</option>
-                  </optgroup>
-                  <optgroup label="Music">
-                    <option>Piano</option><option>Guitar</option><option>Violin</option><option>Drums</option><option>Singing</option><option>Ukulele</option><option>Guzheng</option><option>Erhu</option>
-                  </optgroup>
-                  <optgroup label="Dance">
-                    <option>Ballet</option><option>Hip hop dance</option><option>Contemporary dance</option><option>Chinese dance</option><option>K-pop dance</option>
-                  </optgroup>
-                  <optgroup label="Thinking skills">
-                    <option>Abacus and mental arithmetic</option><option>Chess</option><option>Coding</option><option>Robotics</option>
-                  </optgroup>
-                  <optgroup label="Art and speech">
-                    <option>Drawing and painting</option><option>Art and craft</option><option>Speech and drama</option><option>Public speaking</option><option>Creative writing</option><option>Photography</option>
-                  </optgroup>
-                  <option value="__other">Something else (type it)</option>
-                </select>
-                <div class="enr-own" id="enr-own" hidden>
-                  <input type="text" id="t-enr-own" maxlength="40" placeholder="e.g. Lion dance">
-                  <button type="button" class="btn outline small" id="enr-add">Add</button>
-                </div>
-              </div>
-              <ul class="pills" id="enr-picked" aria-label="Other activities added"></ul>
             </div>
             <div class="field">
               <div class="q" id="q-areas">Where can you teach?</div>
@@ -700,53 +679,58 @@ let started = false;
 const start = () => { if (!started) { started = true; track("tutor_form_start"); } };
 $("tform").addEventListener("input", start); $("tform").addEventListener("click", start);
 
-document.querySelectorAll("#tform .chips[data-name]").forEach(g => bindChips(g, S, name => { if (name === "levels") { drawSubjects(); $("f-enr").hidden = !S.levels.includes("Enrichment"); } }));
+const ENR_GROUPS = {
+  "Sports": ["Swimming", "Pickleball", "Badminton", "Tennis", "Table tennis", "Football", "Basketball", "Netball", "Volleyball", "Gymnastics", "Taekwondo", "Karate", "Judo", "Wushu", "Fencing", "Golf", "Climbing", "Athletics and running"],
+  "Coding and gaming": ["Coding", "Robotics", "Game design", "Esports coaching", "Digital art and animation"],
+  "Music": ["Piano", "Guitar", "Violin", "Drums", "Singing", "Ukulele", "Guzheng", "Erhu"],
+  "Dance": ["Ballet", "Hip hop dance", "Contemporary dance", "Chinese dance", "K-pop dance"],
+  "Thinking skills": ["Abacus and mental arithmetic", "Chess"],
+  "Art and speech": ["Drawing and painting", "Art and craft", "Speech and drama", "Public speaking", "Creative writing", "Photography"],
+};
+const KIND = new Set();
+document.querySelectorAll("#tform .chips[data-name]").forEach(g => bindChips(g, S, name => { if (name === "levels") drawSubjects(); }));
+$("kind-chips").addEventListener("click", e => {
+  const b = e.target.closest(".kind"); if (!b) return;
+  const k = b.dataset.kind; KIND.has(k) ? KIND.delete(k) : KIND.add(k);
+  b.setAttribute("aria-pressed", KIND.has(k));
+  $("f-levels").hidden = !KIND.has("school"); $("f-enr").hidden = !KIND.has("enr");
+  drawSubjects();
+});
 
-// Enrichment: common sports as buttons, everything else from the Other activity list.
-const COMMON = [...document.querySelectorAll("#enr-chips .chip:not([data-other])")].map(b => b.dataset.value);
-function drawEnrichment() {
-  document.querySelectorAll("#enr-chips .chip:not([data-other])").forEach(b => b.setAttribute("aria-pressed", ENR.has(b.dataset.value)));
-  const ul = $("enr-picked"); ul.innerHTML = "";
-  [...ENR].filter(v => !COMMON.includes(v)).forEach(v => {
-    const li = document.createElement("li"); const b = document.createElement("button"); b.type = "button";
-    b.setAttribute("aria-label", "Remove " + v); b.innerHTML = '<span aria-hidden="true">×</span>'; b.prepend(document.createTextNode(v));
-    b.addEventListener("click", () => { ENR.delete(v); drawEnrichment(); });
-    li.appendChild(b); ul.appendChild(li);
+// Enrichment: every common activity as a button, grouped like the subjects, plus a box for anything else.
+(() => {
+  const box = $("enr-groups");
+  Object.entries(ENR_GROUPS).forEach(([g, list]) => {
+    const wrap = document.createElement("div"); wrap.className = "subgroup";
+    wrap.innerHTML = `<span class="lbl">${g}</span>`;
+    const chips = document.createElement("div"); chips.className = "chips"; chips.dataset.multi = "true"; chips.setAttribute("role", "group"); chips.setAttribute("aria-label", g);
+    list.forEach(v => { const b = document.createElement("button"); b.type = "button"; b.className = "chip"; b.textContent = v; b.dataset.value = v; b.setAttribute("aria-pressed", "false"); chips.appendChild(b); });
+    wrap.appendChild(chips); box.appendChild(wrap);
   });
+  box.addEventListener("click", e => {
+    const b = e.target.closest(".chip"); if (!b) return;
+    const v = b.dataset.value;
+    if (ENR.has(v)) ENR.delete(v);
+    else if (ENR.size + ownActivities().length >= 12) { $("err-3").textContent = "Please choose up to 12 activities."; return; }
+    else ENR.add(v);
+    $("err-3").textContent = "";
+    b.setAttribute("aria-pressed", ENR.has(v));
+  });
+})();
+function ownActivities() {
+  return [...new Set($("t-enr-own").value.split(/[,;\n]/).map(v => v.replace(/\s+/g, " ").trim().slice(0, 40)).filter(v => v.length >= 2))];
 }
-$("enr-chips").addEventListener("click", e => {
-  const b = e.target.closest(".chip"); if (!b) return;
-  if (b.dataset.other) {
-    const open = $("enr-more").hidden; $("enr-more").hidden = !open; b.setAttribute("aria-expanded", open); b.setAttribute("aria-pressed", open);
-    if (open) $("t-enr-other").focus();
-    return;
-  }
-  ENR.has(b.dataset.value) ? ENR.delete(b.dataset.value) : ENR.add(b.dataset.value);
-  drawEnrichment();
-});
-function addOwn(v) {
-  v = v.replace(/\s+/g, " ").trim().slice(0, 40);
-  if (v.length < 2) return;
-  if (ENR.size >= 12) { $("err-3").textContent = "Please choose up to 12 activities."; return; }
-  ENR.add(v); drawEnrichment();
-}
-$("t-enr-other").addEventListener("change", e => {
-  const v = e.target.value;
-  $("enr-own").hidden = v !== "__other";
-  if (v && v !== "__other") { addOwn(v); e.target.value = ""; }
-  if (v === "__other") $("t-enr-own").focus();
-});
-$("enr-add").addEventListener("click", () => { addOwn($("t-enr-own").value); $("t-enr-own").value = ""; });
-$("t-enr-own").addEventListener("keydown", e => { if (e.key === "Enter") { e.preventDefault(); $("enr-add").click(); } });
+const levelsOut = () => [...(KIND.has("school") ? S.levels.filter(l => ACADEMIC.includes(l)) : []), ...(KIND.has("enr") ? ["Enrichment"] : [])];
+const activities = () => [...new Set([...ENR, ...ownActivities()])].slice(0, 12);
 
 function drawSubjects() {
   const box = $("subj-groups"); box.innerHTML = "";
-  const groups = ["Primary", "Secondary", "JC"].filter(l => S.levels.includes(l));
+  const groups = KIND.has("school") ? ["Primary", "Secondary", "JC"].filter(l => S.levels.includes(l)) : [];
   $("f-subj").hidden = !groups.length;
   groups.forEach(l => {
     const wrap = document.createElement("div"); wrap.className = "subgroup";
     wrap.innerHTML = `<span class="lbl">${l === "JC" ? "Junior College" : l}</span>`;
-    const chips = document.createElement("div"); chips.className = "chips";
+    const chips = document.createElement("div"); chips.className = "chips"; chips.dataset.multi = "true";
     SUBJECTS[l].forEach(s => {
       const b = document.createElement("button"); b.type = "button"; b.className = "chip"; b.textContent = s; b.dataset.value = s;
       b.setAttribute("aria-pressed", picked.has(s));
@@ -809,11 +793,12 @@ function check() {
   need(!!v("t-qual"), 2, "Please choose your highest qualification.");
   need(v("t-inst").length >= 2, 2, "Please add the school or university for that qualification.");
   need(!v("t-year") || /^(19[6-9]\d|20\d\d)$/.test(v("t-year")), 2, "Please check the year of graduation.");
-  need(S.levels.length > 0, 3, "Please choose at least one level, or Enrichment and sports.");
-  const academic = S.levels.filter(l => ACADEMIC.includes(l));
+  need(KIND.size > 0, 3, "Please choose School subjects, Enrichment and sports, or both.");
+  const academic = KIND.has("school") ? S.levels.filter(l => ACADEMIC.includes(l)) : [];
+  need(!KIND.has("school") || academic.length > 0, 3, "Please choose the levels you teach.");
   const subjects = [...picked].filter(s => academic.some(l => SUBJECTS[l].includes(s)));
   need(!academic.length || subjects.length > 0, 3, "Please choose at least one subject.");
-  need(!S.levels.includes("Enrichment") || ENR.size > 0, 3, "Please choose at least one activity you teach or coach.");
+  need(!KIND.has("enr") || activities().length > 0, 3, "Please choose at least one activity you teach or coach.");
   need(S.areas.length > 0, 3, "Please choose where you can teach.");
   need(!v("t-rate") || (+v("t-rate") >= 10 && +v("t-rate") <= 500), 3, "Please enter your lowest hourly rate in dollars, e.g. 40.");
   need(FILES.cv.length === 1, 4, "Please attach your CV.");
@@ -847,7 +832,7 @@ $("tform").addEventListener("submit", async e => {
   const subjects = check(); if (!subjects) return;
   const btn = $("t-submit"), bar = $("t-bar"), fill = bar.querySelector("i");
   btn.disabled = true; btn.textContent = "Uploading…"; bar.hidden = false; fill.style.width = "4%";
-  track("tutor_form_submit", { levels: S.levels.join(", "), subjects: subjects.length, activities: ENR.size, files: Object.values(FILES).flat().length });
+  track("tutor_form_submit", { levels: levelsOut().join(", "), subjects: subjects.length, activities: activities().length, files: Object.values(FILES).flat().length });
   const done = (ref, link, preview) => {
     $("tf-body").hidden = true; $("tf-done").hidden = false;
     $("t-ref").textContent = ref; $("t-tglink").href = link; $("t-preview").hidden = !preview;
@@ -861,8 +846,8 @@ $("tform").addEventListener("submit", async e => {
    ["gender", S.gender], ["qualification", v("t-qual")], ["institution", v("t-inst")], ["course", v("t-course")], ["grad_year", v("t-year")],
    ["experience", v("t-exp")], ["min_rate", v("t-rate")], ["intro", v("t-intro")], ["consent", "yes"], ["website", v("t-website")]]
     .forEach(([k, val]) => fd.append(k, val));
-  S.levels.forEach(x => fd.append("levels", x)); subjects.forEach(x => fd.append("subjects", x));
-  if (S.levels.includes("Enrichment")) ENR.forEach(x => fd.append("enrichment", x)); S.areas.forEach(x => fd.append("areas", x));
+  levelsOut().forEach(x => fd.append("levels", x)); subjects.forEach(x => fd.append("subjects", x));
+  if (KIND.has("enr")) activities().forEach(x => fd.append("enrichment", x)); S.areas.forEach(x => fd.append("areas", x));
   FILES.cv.forEach(f => fd.append("cv", f)); FILES.certs.forEach(f => fd.append("certs", f)); FILES.others.forEach(f => fd.append("others", f));
   try {
     const r = await send(fd, p => fill.style.width = Math.max(4, Math.round(p * 92)) + "%");
