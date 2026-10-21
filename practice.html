@@ -81,10 +81,39 @@ h1,h2,h3,h4{margin:0;color:var(--ink);text-wrap:balance;letter-spacing:-.01em}
 .nav a.text:hover{color:var(--accent)}
 .nav a.text[aria-current="page"]{color:var(--accent-strong);border-bottom-color:var(--accent)}
 .menu-btn{display:none}
-@media (max-width:900px){
-  .top .wrap{flex-wrap:wrap}
-  .nav{order:3;width:100%;gap:4px 18px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:10px}
-  .nav .btn{display:none}
+.nav-ctas{display:flex;gap:10px;align-items:center}
+.nav a{white-space:nowrap}
+.n-short{display:none}
+.l-l{display:none}
+@media (max-width:1060px){.l-s{display:none}.l-l{display:inline}}
+@media (max-width:640px){.n-long{display:none}.n-short{display:inline}}
+.nav .tutor-btn[aria-current="page"]{background:var(--accent-wash)}
+@media (min-width:1061px) and (max-width:1240px){
+  .nav{gap:18px}
+  .nav a.text{font-size:14.5px}
+  .crest .nm span{display:none}
+}
+@media (max-width:1060px){
+  .top .wrap{flex-wrap:wrap;padding-block:12px}
+  .menu-btn{display:inline-flex;align-items:center;gap:10px;font:600 15px/1 var(--f);color:var(--accent-strong);background:var(--bg);border:1px solid var(--line-strong);border-radius:4px;padding:11px 14px;cursor:pointer}
+  .menu-btn:hover{border-color:var(--accent)}
+  .menu-btn .bars{display:grid;gap:4px;width:18px}
+  .menu-btn .bars i{display:block;height:2px;background:currentColor;transition:transform .2s,opacity .2s}
+  .menu-btn[aria-expanded="true"] .bars i:nth-child(1){transform:translateY(6px) rotate(45deg)}
+  .menu-btn[aria-expanded="true"] .bars i:nth-child(2){opacity:0}
+  .menu-btn[aria-expanded="true"] .bars i:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+  .nav{display:none;order:3;width:100%;flex-direction:column;align-items:stretch;gap:0;border-top:1px solid var(--line);margin-top:4px}
+  .top.open .nav{display:flex}
+  .nav a.text{display:flex;justify-content:space-between;align-items:center;font-size:16px;padding:15px 4px;border-bottom:1px solid var(--line)}
+  .nav a.text::after{content:"";width:7px;height:7px;border:solid var(--ink-2);border-width:0 2px 2px 0;transform:rotate(-45deg);margin-right:4px}
+  .nav a.text[aria-current="page"]{border-bottom-color:var(--line);box-shadow:inset 4px 0 0 var(--accent);padding-left:14px}
+  .nav-ctas{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:16px 0 6px}
+  .nav-ctas .btn{padding:13px 12px;font-size:15px}
+}
+@media (max-width:420px){
+  .crest svg{width:38px;height:43px}
+  .crest .nm b{font-size:21px}
+  .crest .nm span{font-size:11.5px}
 }
 
 /* buttons */
@@ -239,7 +268,9 @@ footer .legal .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;ga
 
 .notice-r{display:flex;align-items:center;gap:14px;flex-shrink:0}
 .notice-link{font-size:13.5px;font-weight:600;color:inherit;white-space:nowrap}
-@media (max-width:640px){.notice-link{display:none}}
+
+.tutor-note{margin-top:22px;padding-top:16px;border-top:1px solid var(--line);font-size:15px;color:var(--ink-2)}
+.tutor-note a{font-weight:600;color:var(--accent-strong)}
 
 .practice{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,320px);gap:clamp(24px,4vw,48px);align-items:start}
 @media (max-width:940px){.practice{grid-template-columns:minmax(0,1fr)}}
@@ -289,7 +320,7 @@ footer .legal .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;ga
 .side li svg{margin-top:5px}
 </style>
 </head><body>
-<div class="notice"><div class="wrap"><span><b>For parents:</b> tutor requests are free, and shortlists are usually sent within one working day.</span><span class="notice-r"><a class="notice-link" href="tutors">Tutors: register here</a><button type="button" class="mode-btn js-mode" aria-pressed="false"><svg width="13" height="13" viewBox="0 0 16 16" aria-hidden="true"><path d="M13.5 10.2A6 6 0 015.8 2.5a6 6 0 107.7 7.7z" fill="none" stroke="currentColor" stroke-width="1.5"/></svg><span class="js-mode-label">Dark mode</span></button></span></div></div>
+<div class="notice"><div class="wrap"><span><b>For parents:</b> <span class="n-long">tutor requests are free, and shortlists are usually sent within one working day.</span><span class="n-short">free tutor requests, shortlists in one working day.</span></span><span class="notice-r"><button type="button" class="mode-btn js-mode" aria-pressed="false"><svg width="13" height="13" viewBox="0 0 16 16" aria-hidden="true"><path d="M13.5 10.2A6 6 0 015.8 2.5a6 6 0 107.7 7.7z" fill="none" stroke="currentColor" stroke-width="1.5"/></svg><span class="js-mode-label">Dark mode</span></button></span></div></div>
 <header class="top">
   <div class="wrap">
     <a class="crest" href="./" aria-label="Tutelle home">
@@ -300,13 +331,17 @@ footer .legal .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;ga
       </svg>
       <span class="nm"><b>Tutelle</b><span>Home Tuition Agency · Singapore</span></span>
     </a>
-    <nav class="nav" aria-label="Main">
+    <button type="button" class="menu-btn" aria-expanded="false" aria-controls="main-nav"><span class="bars" aria-hidden="true"><i></i><i></i><i></i></span><span class="menu-label">Menu</span></button>
+    <nav class="nav" id="main-nav" aria-label="Main">
       <a class="text" href="./">Home tuition</a>
-      <a class="text" href="practice" aria-current="page">Practice questions</a>
-      <a class="text" href="papers">Past year papers</a>
+      <a class="text" href="practice" aria-current="page"><span class="l-s">Practice</span><span class="l-l">Practice questions</span></a>
+      <a class="text" href="papers"><span class="l-s">Past papers</span><span class="l-l">Past year papers</span></a>
       <a class="text" href="enrichment">Enrichment</a>
       <a class="text" href="exam-dates">Exam dates</a>
-      <a class="btn small" href="./#request">Request a tutor</a>
+      <span class="nav-ctas">
+        <a class="btn small outline tutor-btn" href="tutors">Become a tutor</a>
+        <a class="btn small" href="./#request">Request a tutor</a>
+      </span>
     </nav>
   </div>
 </header>
@@ -547,6 +582,15 @@ document.querySelectorAll("[data-check]").forEach(el => {
 });
 document.addEventListener("submit", e => checkFields(e.target), true);
 function refCode(prefix) { return prefix + String(Math.floor(1000 + Math.random() * 9000)); }
+
+/* Mobile menu */
+document.querySelectorAll(".menu-btn").forEach(b => {
+  const top = b.closest(".top");
+  const set = open => { top.classList.toggle("open", open); b.setAttribute("aria-expanded", open); b.querySelector(".menu-label").textContent = open ? "Close" : "Menu"; };
+  b.addEventListener("click", () => set(!top.classList.contains("open")));
+  top.querySelectorAll(".nav a").forEach(a => a.addEventListener("click", () => set(false)));
+  document.addEventListener("keydown", e => { if (e.key === "Escape" && top.classList.contains("open")) { set(false); b.focus(); } });
+});
 
 
 // Original questions written by Tutelle in the style of Singapore school exam papers.
