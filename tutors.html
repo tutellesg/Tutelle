@@ -320,7 +320,7 @@ footer .legal .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;ga
 .tref{font-variant-numeric:tabular-nums;font-weight:700;color:var(--accent-strong);letter-spacing:.02em;white-space:nowrap}
 </style>
 </head><body>
-<div class="notice"><div class="wrap"><span><b>For parents:</b> <span class="n-long">tutor requests are free, and shortlists are usually sent within one working day.</span><span class="n-short">free tutor requests, shortlists in one working day.</span></span><span class="notice-r"><button type="button" class="mode-btn js-mode" aria-pressed="false"><svg width="13" height="13" viewBox="0 0 16 16" aria-hidden="true"><path d="M13.5 10.2A6 6 0 015.8 2.5a6 6 0 107.7 7.7z" fill="none" stroke="currentColor" stroke-width="1.5"/></svg><span class="js-mode-label">Dark mode</span></button></span></div></div>
+<div class="notice"><div class="wrap"><span><b>For parents:</b> <span class="n-long">no extra cost and no minimum commitment. Shortlists are usually sent within one working day.</span><span class="n-short">no extra cost, shortlists in one working day.</span></span><span class="notice-r"><button type="button" class="mode-btn js-mode" aria-pressed="false"><svg width="13" height="13" viewBox="0 0 16 16" aria-hidden="true"><path d="M13.5 10.2A6 6 0 015.8 2.5a6 6 0 107.7 7.7z" fill="none" stroke="currentColor" stroke-width="1.5"/></svg><span class="js-mode-label">Dark mode</span></button></span></div></div>
 <header class="top">
   <div class="wrap">
     <a class="crest" href="./" aria-label="Tutelle home">
@@ -462,20 +462,20 @@ footer .legal .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;ga
           </fieldset>
 
           <fieldset class="part" id="p4">
-            <h2><span class="n">4</span>Documents</h2>
-            <p class="hint" style="margin-top:-6px">PDF, JPG or PNG, up to 5 MB each.</p>
+            <h2><span class="n">4</span>Documents <span class="muted" style="font-size:15px;font-weight:500">(optional now)</span></h2>
+            <p class="hint" style="margin-top:-6px">Add them now, or send them to our Telegram bot later. We put you forward to families only once we have checked them. PDF, JPG or PNG, up to 5 MB each.</p>
             <div class="field">
-              <div class="doc-head"><span class="q">CV</span><small>PDF or Word · required</small></div>
+              <div class="doc-head"><span class="q">CV</span><small>PDF or Word</small></div>
               <label class="drop" data-role="cv"><input type="file" accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"><b>Choose your CV</b><span>or drag it here</span></label>
               <ul class="flist" data-list="cv"></ul>
             </div>
             <div class="field">
-              <div class="doc-head"><span class="q">Certificates and transcripts</span><small>1 to 5 files</small></div>
+              <div class="doc-head"><span class="q">Certificates and transcripts</span><small>Up to 5 files</small></div>
               <label class="drop" data-role="certs"><input type="file" multiple accept=".pdf,.jpg,.jpeg,.png,application/pdf,image/jpeg,image/png"><b>Choose files</b><span>Your highest qualification first, e.g. degree scroll or A-Level certificate</span></label>
               <ul class="flist" data-list="certs"></ul>
             </div>
             <div class="field">
-              <div class="doc-head"><span class="q">Other supporting documents</span><small>Optional, up to 3</small></div>
+              <div class="doc-head"><span class="q">Other supporting documents</span><small>Up to 3</small></div>
               <label class="drop" data-role="others"><input type="file" multiple accept=".pdf,.jpg,.jpeg,.png,application/pdf,image/jpeg,image/png"><b>Choose files</b><span>e.g. MOE service letter, student card, teaching awards</span></label>
               <ul class="flist" data-list="others"></ul>
             </div>
@@ -494,6 +494,7 @@ footer .legal .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;ga
         <div class="done" id="tf-done" hidden>
           <h2>Thank you. We have your registration.</h2>
           <p>Your reference is <span class="tref" id="t-ref"></span>. We check every tutor's documents before putting them forward to families, and will contact you if we need anything else.</p>
+          <p id="t-nodocs" hidden><b>Your documents:</b> after connecting Telegram, send your CV and certificates to the bot as files or photos. You get job alerts straight away, and we can put you forward to families once they are checked.</p>
           <p><b>One more step:</b> connect Telegram to get tuition requests that match you. It takes a tap.</p>
           <a class="btn" id="t-tglink" href="https://t.me/TutelleSGBot" target="_blank" rel="noopener">Get job alerts on Telegram</a>
           <p class="note" id="t-preview" hidden>This is a preview: nothing was sent.</p>
@@ -505,11 +506,11 @@ footer .legal .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;ga
           <div class="card-head"><strong>How it works</strong></div>
           <div class="card-body">
             <ol>
-              <li>Register here with your CV and certificates.</li>
+              <li>Register here. Add your CV and certificates now or later.</li>
               <li>Connect Telegram. Matching requests are sent to you there and posted on <a href="https://t.me/TutelleSG" target="_blank" rel="noopener">@TutelleSG</a>.</li>
               <li>Apply for the ones you want. If a family chooses you, we introduce you.</li>
             </ol>
-            <p class="muted" style="font-size:14px">A commission is payable only when you are matched with a family.</p>
+            <p class="muted" style="font-size:14px">You pay nothing upfront. Our fee is the first two lessons' fees, paid to us by the family. If the family stops after the first lesson, you receive half of that lesson's fee.</p>
           </div>
         </div>
         <div class="card">
@@ -845,9 +846,7 @@ function check() {
   need(!KIND.has("enr") || activities().length > 0, 3, "Please choose at least one activity you teach or coach.");
   need(S.areas.length > 0, 3, "Please choose where you can teach.");
   need(!v("t-rate") || (+v("t-rate") >= 10 && +v("t-rate") <= 500), 3, "Please enter your lowest hourly rate in dollars, e.g. 40.");
-  need(FILES.cv.length === 1, 4, "Please attach your CV.");
-  need(FILES.certs.length >= 1, 4, "Please attach at least one certificate or transcript.");
-  need($("t-consent").checked, 5, "Please tick the box to confirm your details.");
+    need($("t-consent").checked, 5, "Please tick the box to confirm your details.");
   const seen = new Set();
   fails.forEach(([n, msg]) => { if (!seen.has(n)) { $("err-" + n).textContent = msg; seen.add(n); } });
   if (fails.length) {
@@ -880,6 +879,7 @@ $("tform").addEventListener("submit", async e => {
   const done = (ref, link, preview) => {
     $("tf-body").hidden = true; $("tf-done").hidden = false;
     $("t-ref").textContent = ref; $("t-tglink").href = link; $("t-preview").hidden = !preview;
+    $("t-nodocs").hidden = Object.values(FILES).flat().length > 0;
     $("tf-title").textContent = "Registration received";
     $("tform").scrollIntoView({ behavior: "smooth", block: "start" });
   };

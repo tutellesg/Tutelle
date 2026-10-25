@@ -304,7 +304,7 @@ footer .legal .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;ga
 .sample{font-size:13px;font-weight:700;color:var(--ink-2);border:1px dashed var(--line-strong);padding:3px 8px;border-radius:2px}
 </style>
 </head><body>
-<div class="notice"><div class="wrap"><span><b>For parents:</b> <span class="n-long">tutor requests are free, and shortlists are usually sent within one working day.</span><span class="n-short">free tutor requests, shortlists in one working day.</span></span><span class="notice-r"><button type="button" class="mode-btn js-mode" aria-pressed="false"><svg width="13" height="13" viewBox="0 0 16 16" aria-hidden="true"><path d="M13.5 10.2A6 6 0 015.8 2.5a6 6 0 107.7 7.7z" fill="none" stroke="currentColor" stroke-width="1.5"/></svg><span class="js-mode-label">Dark mode</span></button></span></div></div>
+<div class="notice"><div class="wrap"><span><b>For parents:</b> <span class="n-long">no extra cost and no minimum commitment. Shortlists are usually sent within one working day.</span><span class="n-short">no extra cost, shortlists in one working day.</span></span><span class="notice-r"><button type="button" class="mode-btn js-mode" aria-pressed="false"><svg width="13" height="13" viewBox="0 0 16 16" aria-hidden="true"><path d="M13.5 10.2A6 6 0 015.8 2.5a6 6 0 107.7 7.7z" fill="none" stroke="currentColor" stroke-width="1.5"/></svg><span class="js-mode-label">Dark mode</span></button></span></div></div>
 <header class="top">
   <div class="wrap">
     <a class="crest" href="./" aria-label="Tutelle home">
@@ -346,7 +346,7 @@ footer .legal .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;ga
         <div id="sl-list" class="tlist" aria-live="polite"></div>
         <div id="sl-none-card" class="card none" hidden>
           <strong>None of these suit?</strong>
-          <p class="muted">Tell us what you are looking for and we will send you other tutors. It is still free.</p>
+          <p class="muted">Tell us what you are looking for and we will send you other tutors.</p>
           <div class="field" style="width:100%"><label class="q" for="none-note">What would suit better <span class="muted">(optional)</span></label>
             <textarea id="none-note" maxlength="500" placeholder="e.g. a tutor with more experience in A-Math, or weekday evenings"></textarea></div>
           <button type="button" class="btn outline" id="none-btn">Ask for other tutors</button>
@@ -361,9 +361,9 @@ footer .legal .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;ga
             <ol>
               <li>Read each tutor's profile. We have checked the qualifications of every tutor marked Verified.</li>
               <li>Choose the tutor you would like. You can add a note, such as preferred days.</li>
-              <li>We contact you, usually within one working day, to arrange the first lesson.</li>
+              <li>We contact you, usually within one working day, to arrange the first lesson and payment.</li>
             </ol>
-            <p class="muted">Rates are the tutor's hourly rate. There is no fee for parents.</p>
+            <p class="muted">Rates are the tutor's hourly rate. Before the first lesson, you pay the fees for lessons 1 and 2 to Tutelle. From lesson 3, you pay the tutor directly. If you stop after the first lesson, we refund the second.</p>
           </div>
         </div>
         <div class="card">
@@ -617,7 +617,7 @@ document.querySelectorAll(".menu-btn").forEach(b => {
   function openConfirm(card, n, p) {
     document.querySelectorAll(".confirm").forEach(c => c.remove());
     const box = el("div", "confirm");
-    box.append(el("strong", "", `Choose ${p.name}?`), el("p", "", "We will contact you to arrange the first lesson. You do not pay anything to Tutelle."));
+    box.append(el("strong", "", `Choose ${p.name}?`), el("p", "", "We will contact you to arrange the first lesson and send PayNow details for the fees for lessons 1 and 2. From lesson 3, you pay the tutor directly."));
     const f = el("div", "field"), lb = el("label", "q", "A note for us "), ta = el("textarea");
     lb.append(el("span", "muted", "(optional)")); lb.htmlFor = ta.id = "note-" + n; ta.maxLength = 500; ta.placeholder = "e.g. preferred days and times, or a question for the tutor";
     f.append(lb, ta);
@@ -643,7 +643,7 @@ document.querySelectorAll(".menu-btn").forEach(b => {
     const box = $("sl-done"); box.innerHTML = ""; box.hidden = false;
     if (DATA.status === "Chosen") {
       const p = DATA.profiles[DATA.chosen - 1] || {};
-      box.append(el("h2", "", "Thank you. We have your choice."), el("p", "", `You chose ${p.name || "Tutor " + DATA.chosen}${/\.$/.test(p.name || "") ? "" : "."} We will contact you, usually within one working day, to arrange the first lesson.`));
+      box.append(el("h2", "", "Thank you. We have your choice."), el("p", "", `You chose ${p.name || "Tutor " + DATA.chosen}${/\.$/.test(p.name || "") ? "" : "."} We will contact you, usually within one working day, to arrange the first lesson and payment.`));
     } else if (DATA.status === "None suitable") {
       box.append(el("h2", "", "Thank you. We will find other tutors."), el("p", "", "We will send you a new shortlist, usually within one working day."));
     } else {
